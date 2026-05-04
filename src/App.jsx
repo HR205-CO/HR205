@@ -92,7 +92,7 @@ function BookingPage() {
         .insert([
           {
             name: formData.name,
-            email: formData.name + '@client.local', // Placeholder email
+            email: formData.name + '@client.local',
             phone: formData.phone,
             state: formData.state,
             interests: formData.interests,
@@ -102,17 +102,19 @@ function BookingPage() {
             time: formData.time,
             status: 'pending'
           }
-        ]);
+        ])
+        .select();
 
       if (submitError) {
-        throw submitError;
+        console.error('Supabase error:', submitError);
+        throw new Error(submitError.message || 'Failed to save booking');
       }
 
       setStep(4);
       setSuccessMessage('Booking confirmed! Check your email for confirmation.');
     } catch (err) {
       console.error('Submission error:', err);
-      setError('Failed to schedule consultation. Please try again.');
+      setError(err.message || 'Failed to schedule consultation. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
