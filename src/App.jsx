@@ -120,7 +120,7 @@ function BookingPage() {
           <img 
             src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png" 
             alt="HR 205 LLC Communications" 
-            className="h-16 mx-auto mb-4"
+            className="h-32 sm:h-40 mx-auto mb-8"
           />
           <h1 className="text-3xl font-bold text-gray-900">Schedule Your Free Consultation</h1>
           <p className="text-gray-600 mt-2">Expert telecom consulting at no cost to you</p>
