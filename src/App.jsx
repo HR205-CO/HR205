@@ -504,7 +504,7 @@ function AdminDashboard() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginEmail === 'hr205@hotmail.com' && loginPassword === 'hr205demo123') {
+    if (loginEmail === 'hr205.co@hotmail.com' && loginPassword === 'Tweet202440$') {
       setIsLoggedIn(true);
       setLoginError('');
       setLoginEmail('');
