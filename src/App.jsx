@@ -482,13 +482,13 @@ function AdminDashboard() {
 
   // Agent accounts (in real system, would be in database)
   const agents = [
-    { id: 1, name: 'Agent 1', email: 'agent1@hr205.com', password: 'agent123' },
-    { id: 2, name: 'Agent 2', email: 'agent2@hr205.com', password: 'agent123' },
-    { id: 3, name: 'Agent 3', email: 'agent3@hr205.com', password: 'agent123' }
+    { id: 1, name: 'Rep 1', email: 'hr205.co+rep1@hotmail.com', password: 'agent123' },
+    { id: 2, name: 'Rep 2', email: 'hr205.co+rep2@hotmail.com', password: 'agent123' },
+    { id: 3, name: 'Rep 3', email: 'hr205.co+rep3@hotmail.com', password: 'agent123' }
   ];
 
   // Manager account
-  const managerEmail = 'hr205.co@hotmail.com';
+  const managerEmail = 'hr205.co+manager@hotmail.com';
   const managerPassword = 'Tweet202440$';
 
   // Fetch bookings from Supabase
@@ -633,7 +633,7 @@ function AdminDashboard() {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-2">Manager: hr205.co@hotmail.com / Tweet202440$ | Agents: agent1/2/3@hr205.com / agent123</p>
+              <p className="text-xs text-gray-500 mt-2">Manager: hr205.co+manager@hotmail.com / Tweet202440$ | Reps: hr205.co+rep1/2/3@hotmail.com / agent123</p>
             </div>
 
             <button
