@@ -466,8 +466,9 @@ function BookingPage() {
   );
 }
 
-// Admin Dashboard
+// Admin Dashboard - Three Tier System
 function AdminDashboard() {
+  const [userRole, setUserRole] = useState(null); // 'agent' or 'manager'
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -477,8 +478,20 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterState, setFilterState] = useState('all');
+  const [selectedAgent, setSelectedAgent] = useState(null);
 
-  // Fetch bookings from Supabase when logged in
+  // Agent accounts (in real system, would be in database)
+  const agents = [
+    { id: 1, name: 'Agent 1', email: 'agent1@hr205.com', password: 'agent123' },
+    { id: 2, name: 'Agent 2', email: 'agent2@hr205.com', password: 'agent123' },
+    { id: 3, name: 'Agent 3', email: 'agent3@hr205.com', password: 'agent123' }
+  ];
+
+  // Manager account
+  const managerEmail = 'hr205.co@hotmail.com';
+  const managerPassword = 'Tweet202440$';
+
+  // Fetch bookings from Supabase
   useEffect(() => {
     const fetchBookings = async () => {
       if (!isLoggedIn) return;
@@ -504,14 +517,29 @@ function AdminDashboard() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (loginEmail === 'hr205.co@hotmail.com' && loginPassword === 'Tweet202440$') {
+    
+    // Check if manager
+    if (loginEmail === managerEmail && loginPassword === managerPassword) {
       setIsLoggedIn(true);
+      setUserRole('manager');
       setLoginError('');
       setLoginEmail('');
       setLoginPassword('');
-    } else {
-      setLoginError('Invalid credentials');
+      return;
     }
+
+    // Check if agent
+    const agent = agents.find(a => a.email === loginEmail && a.password === loginPassword);
+    if (agent) {
+      setIsLoggedIn(true);
+      setUserRole('agent');
+      setLoginError('');
+      setLoginEmail('');
+      setLoginPassword('');
+      return;
+    }
+
+    setLoginError('Invalid credentials');
   };
 
   const filteredBookings = bookings.filter(booking => {
@@ -528,8 +556,6 @@ function AdminDashboard() {
         .eq('id', id);
 
       if (error) throw error;
-
-      // Update local state
       setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus } : b));
     } catch (err) {
       console.error('Error updating status:', err);
@@ -545,7 +571,7 @@ function AdminDashboard() {
         b.phone,
         b.state,
         b.interests.join('; '),
-        b.referralSource,
+        b.referral_source,
         b.date,
         b.time,
         b.status
@@ -560,12 +586,13 @@ function AdminDashboard() {
     a.click();
   };
 
+  // LOGIN SCREEN
   if (!isLoggedIn) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-900 to-blue-800 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Admin Login</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>
             <p className="text-gray-600 mt-2">HR 205 LLC Booking Management</p>
           </div>
 
@@ -583,7 +610,7 @@ function AdminDashboard() {
                 type="email"
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
-                placeholder="hr205@hotmail.com"
+                placeholder="manager or agent email"
                 className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
               />
             </div>
@@ -606,7 +633,7 @@ function AdminDashboard() {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              <p className="text-xs text-gray-500 mt-1">Demo: hr205demo123</p>
+              <p className="text-xs text-gray-500 mt-2">Manager: hr205.co@hotmail.com / Tweet202440$ | Agents: agent1/2/3@hr205.com / agent123</p>
             </div>
 
             <button
@@ -621,160 +648,255 @@ function AdminDashboard() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-sm text-gray-600">HR 205 LLC Booking Management</p>
-          </div>
-          <button
-            onClick={() => setIsLoggedIn(false)}
-            className="flex items-center gap-2 px-4 py-2 text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-all"
-          >
-            <LogOut className="w-4 h-4" />
-            Logout
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
-            <p className="text-gray-600 text-sm font-medium">Total Bookings</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">{bookings.length}</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
-            <p className="text-gray-600 text-sm font-medium">Pending</p>
-            <p className="text-3xl font-bold text-yellow-600 mt-2">{bookings.filter(b => b.status === 'pending').length}</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
-            <p className="text-gray-600 text-sm font-medium">Confirmed</p>
-            <p className="text-3xl font-bold text-blue-600 mt-2">{bookings.filter(b => b.status === 'confirmed').length}</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg border border-gray-200">
-            <p className="text-gray-600 text-sm font-medium">Completed</p>
-            <p className="text-3xl font-bold text-green-600 mt-2">{bookings.filter(b => b.status === 'completed').length}</p>
-          </div>
-        </div>
-
-        {/* Filters */}
-        <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <span className="font-medium text-gray-700">Filter:</span>
+  // MANAGER PORTAL
+  if (userRole === 'manager') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Manager Portal</h1>
+              <p className="text-sm text-gray-600">All Bookings & Agent Management</p>
             </div>
-            
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg text-sm"
-            >
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="completed">Completed</option>
-            </select>
-
-            <select
-              value={filterState}
-              onChange={(e) => setFilterState(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg text-sm"
-            >
-              <option value="all">All States</option>
-              <option value="Alabama">Alabama</option>
-              <option value="Texas">Texas</option>
-              {US_STATES.map(s => s !== 'Alabama' && s !== 'Texas' && <option key={s} value={s}>{s}</option>)}
-            </select>
-
             <button
-              onClick={exportCSV}
-              className="ml-auto flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm font-medium"
+              onClick={() => {
+                setIsLoggedIn(false);
+                setUserRole(null);
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-all"
             >
-              <Download className="w-4 h-4" />
-              Export CSV
+              <LogOut className="w-4 h-4" />
+              Logout
             </button>
           </div>
         </div>
 
-        {/* Bookings Table */}
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Contact</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">State</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Date/Time</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Referral</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredBookings.length > 0 ? (
-                  filteredBookings.map((booking) => (
-                    <tr key={booking.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <div>
-                          <p className="font-medium text-gray-900">{booking.name}</p>
-                          <p className="text-xs text-gray-500">{booking.interests.join(', ')}</p>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-sm">
-                        <p className="text-gray-900">{booking.phone}</p>
-                        <p className="text-xs text-gray-500">{booking.email}</p>
-                      </td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{booking.state}</td>
-                      <td className="px-6 py-4 text-sm text-gray-900">
-                        <p>{booking.date}</p>
-                        <p className="text-xs text-gray-500">{booking.time}</p>
-                      </td>
-                      <td className="px-6 py-4 text-sm">
-                        <p className="text-gray-900 capitalize">{booking.referralSource}</p>
-                        <p className="text-xs text-gray-500">{booking.referralDetail}</p>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800' :
-                          'bg-green-100 text-green-800'
-                        }`}>
-                          {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <select
-                          value={booking.status}
-                          onChange={(e) => updateStatus(booking.id, e.target.value)}
-                          className="text-sm border border-gray-200 rounded px-2 py-1"
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="confirmed">Confirmed</option>
-                          <option value="completed">Completed</option>
-                        </select>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-600 text-sm font-medium">Total Bookings</p>
+              <p className="text-3xl font-bold text-gray-900 mt-2">{bookings.length}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-600 text-sm font-medium">Pending</p>
+              <p className="text-3xl font-bold text-yellow-600 mt-2">{bookings.filter(b => b.status === 'pending').length}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-600 text-sm font-medium">Confirmed</p>
+              <p className="text-3xl font-bold text-blue-600 mt-2">{bookings.filter(b => b.status === 'confirmed').length}</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg border border-gray-200">
+              <p className="text-gray-600 text-sm font-medium">Completed</p>
+              <p className="text-3xl font-bold text-green-600 mt-2">{bookings.filter(b => b.status === 'completed').length}</p>
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
+            <div className="flex items-center gap-4 flex-wrap">
+              <div className="flex items-center gap-2">
+                <Filter className="w-5 h-5 text-gray-600" />
+                <span className="font-medium text-gray-700">Filter:</span>
+              </div>
+              
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="px-4 py-2 border border-gray-200 rounded-lg text-sm"
+              >
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+              </select>
+
+              <select
+                value={filterState}
+                onChange={(e) => setFilterState(e.target.value)}
+                className="px-4 py-2 border border-gray-200 rounded-lg text-sm"
+              >
+                <option value="all">All States</option>
+                <option value="Alabama">Alabama</option>
+                <option value="Texas">Texas</option>
+                {US_STATES.map(s => s !== 'Alabama' && s !== 'Texas' && <option key={s} value={s}>{s}</option>)}
+              </select>
+
+              <button
+                onClick={exportCSV}
+                className="ml-auto flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all text-sm font-medium"
+              >
+                <Download className="w-4 h-4" />
+                Export CSV
+              </button>
+            </div>
+          </div>
+
+          {/* Bookings Table */}
+          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Contact</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">State</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Date/Time</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Referral</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {filteredBookings.length > 0 ? (
+                    filteredBookings.map((booking) => (
+                      <tr key={booking.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <div>
+                            <p className="font-medium text-gray-900">{booking.name}</p>
+                            <p className="text-xs text-gray-500">{booking.interests.join(', ')}</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-sm">
+                          <p className="text-gray-900">{booking.phone}</p>
+                          <p className="text-xs text-gray-500">{booking.email}</p>
+                        </td>
+                        <td className="px-6 py-4 text-sm font-medium text-gray-900">{booking.state}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">
+                          <p>{booking.date}</p>
+                          <p className="text-xs text-gray-500">{booking.time}</p>
+                        </td>
+                        <td className="px-6 py-4 text-sm">
+                          <p className="text-gray-900 capitalize">{booking.referral_source}</p>
+                          <p className="text-xs text-gray-500">{booking.referral_detail}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                            booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800' :
+                            'bg-green-100 text-green-800'
+                          }`}>
+                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={booking.status}
+                            onChange={(e) => updateStatus(booking.id, e.target.value)}
+                            className="text-sm border border-gray-200 rounded px-2 py-1"
+                          >
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="7" className="px-6 py-12 text-center text-gray-500">
+                        No bookings found
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="7" className="px-6 py-12 text-center text-gray-500">
-                      No bookings found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  // AGENT PORTAL
+  if (userRole === 'agent') {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Agent Portal</h1>
+              <p className="text-sm text-gray-600">Your Assigned Bookings</p>
+            </div>
+            <button
+              onClick={() => {
+                setIsLoggedIn(false);
+                setUserRole(null);
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-all"
+            >
+              <LogOut className="w-4 h-4" />
+              Logout
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
+            <p className="text-gray-600 text-sm font-medium mb-2">Your Assigned Bookings</p>
+            <p className="text-3xl font-bold text-blue-600">{bookings.length}</p>
+          </div>
+
+          {/* Agent's bookings table */}
+          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-200">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Phone</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Date/Time</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {bookings.length > 0 ? (
+                    bookings.map((booking) => (
+                      <tr key={booking.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 font-medium text-gray-900">{booking.name}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">{booking.phone}</td>
+                        <td className="px-6 py-4 text-sm text-gray-900">
+                          <p>{booking.date}</p>
+                          <p className="text-xs text-gray-500">{booking.time}</p>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                            booking.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            booking.status === 'confirmed' ? 'bg-blue-100 text-blue-800' :
+                            'bg-green-100 text-green-800'
+                          }`}>
+                            {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={booking.status}
+                            onChange={(e) => updateStatus(booking.id, e.target.value)}
+                            className="text-sm border border-gray-200 rounded px-2 py-1"
+                          >
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="5" className="px-6 py-12 text-center text-gray-500">
+                        No bookings assigned to you
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 // Main App Router
