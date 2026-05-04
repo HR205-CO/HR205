@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Calendar, User, Phone, CheckCircle, MapPin, Loader2, 
-  Users, UserCheck, Handshake, Share2, Search, Megaphone, Plus,
+  Users, UserCheck, Share2, Search, Megaphone, Plus,
   ChevronRight, ArrowLeft, Heart, LogOut, Filter, Download,
-  Eye, EyeOff, Mail, Clock, AlertCircle
+  Eye, EyeOff, Mail, Clock, AlertCircle, Hand
 } from 'lucide-react';
 
 // Mock data for demo - in production this connects to Supabase
@@ -22,7 +22,7 @@ const US_STATES = [
 const REFERRAL_SOURCES = [
   { id: 'friend', label: 'Friend or Family', icon: 'Users' },
   { id: 'customer', label: 'Current Customer', icon: 'UserCheck' },
-  { id: 'affiliate', label: 'Affiliate Partner', icon: 'Handshake' },
+  { id: 'affiliate', label: 'Affiliate Partner', icon: 'Hand' },
   { id: 'social', label: 'Social Media', icon: 'Share2' },
   { id: 'search', label: 'Search Engine', icon: 'Search' },
   { id: 'ad', label: 'Advertisement', icon: 'Megaphone' },
@@ -41,7 +41,7 @@ const SERVICE_INTERESTS = [
 const ICON_MAP = {
   Users: Users,
   UserCheck: UserCheck,
-  Handshake: Handshake,
+  Hand: Hand,
   Share2: Share2,
   Search: Search,
   Megaphone: Megaphone,
