@@ -6,8 +6,12 @@ import {
   ChevronRight, ArrowLeft, Heart, LogOut, Filter, Download,
   Eye, EyeOff, Mail, Clock, AlertCircle, Hand
 } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
 
-// Mock data for demo - in production this connects to Supabase
+// Supabase configuration
+const supabaseUrl = 'https://rdqoibgxiuaenneyqfxn.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJkcW9pYmd4aXVhZW5uZXlxZnhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NjczMzUsImV4cCI6MjA5MzQ0MzMzNX0.hVCU2lYrGk5oUW3BLqyXzdoXW6AZOPQIyjVXiKK2j2U';
+const supabase = createClient(supabaseUrl, supabaseKey);
 const US_STATES = [
   "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
   "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", 
@@ -82,12 +86,32 @@ function BookingPage() {
     setError(null);
 
     try {
-      // In production, this submits to Supabase
-      // For demo, we just show success
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Submit to Supabase
+      const { data, error: submitError } = await supabase
+        .from('consultations')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.name + '@client.local', // Placeholder email
+            phone: formData.phone,
+            state: formData.state,
+            interests: formData.interests,
+            referral_source: formData.referralSource,
+            referral_detail: formData.referralDetail || null,
+            date: formData.date,
+            time: formData.time,
+            status: 'pending'
+          }
+        ]);
+
+      if (submitError) {
+        throw submitError;
+      }
+
       setStep(4);
       setSuccessMessage('Booking confirmed! Check your email for confirmation.');
     } catch (err) {
+      console.error('Submission error:', err);
       setError('Failed to schedule consultation. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -448,25 +472,34 @@ function AdminDashboard() {
   const [loginPassword, setLoginPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [bookings, setBookings] = useState([
-    // Sample data for demo
-    {
-      id: 1,
-      name: 'John Smith',
-      email: 'john@example.com',
-      phone: '205-555-0123',
-      state: 'Alabama',
-      interests: ['High-Speed Internet', 'Bundle Packages'],
-      referralSource: 'friend',
-      referralDetail: 'Mike Johnson',
-      date: '2024-05-15',
-      time: 'Morning (9 AM - 12 PM)',
-      status: 'pending',
-      createdAt: '2024-05-04T10:30:00Z'
-    }
-  ]);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterState, setFilterState] = useState('all');
+
+  // Fetch bookings from Supabase when logged in
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!isLoggedIn) return;
+      
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('consultations')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setBookings(data || []);
+      } catch (err) {
+        console.error('Error fetching bookings:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, [isLoggedIn]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -486,8 +519,20 @@ function AdminDashboard() {
     return true;
   });
 
-  const updateStatus = (id, newStatus) => {
-    setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus } : b));
+  const updateStatus = async (id, newStatus) => {
+    try {
+      const { error } = await supabase
+        .from('consultations')
+        .update({ status: newStatus })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      // Update local state
+      setBookings(bookings.map(b => b.id === id ? { ...b, status: newStatus } : b));
+    } catch (err) {
+      console.error('Error updating status:', err);
+    }
   };
 
   const exportCSV = () => {
