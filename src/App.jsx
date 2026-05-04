@@ -102,18 +102,17 @@ function BookingPage() {
             time: formData.time,
             status: 'pending'
           }
-        ])
-        .select();
+        ]);
 
       if (submitError) {
-        console.error('Supabase error:', submitError);
-        throw new Error(submitError.message || 'Failed to save booking');
+        console.error('Supabase error details:', submitError);
+        throw new Error(submitError.message || 'Could not save booking. Please try again.');
       }
 
       setStep(4);
       setSuccessMessage('Booking confirmed! Check your email for confirmation.');
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error('Full error:', err);
       setError(err.message || 'Failed to schedule consultation. Please try again.');
     } finally {
       setIsSubmitting(false);
