@@ -21,7 +21,7 @@ export default function Hero() {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <div className="relative pt-32 pb-24 lg:pt-52 lg:pb-40 overflow-hidden bg-white">
+    <div className="relative pt-28 sm:pt-32 pb-16 sm:pb-24 lg:pt-52 lg:pb-40 overflow-hidden bg-white">
       <div className="absolute top-0 left-0 w-full h-full -z-10 bg-gradient-to-br from-blue-50/50 via-white to-white" />
       
       <motion.div 
@@ -48,7 +48,7 @@ export default function Hero() {
             <img 
               src={LOGO_URL}
               alt="HR205 LLC Communications"
-              className="h-32 sm:h-40 mx-auto mb-8"
+              className="h-24 sm:h-32 md:h-40 mx-auto mb-6 sm:mb-8"
             />
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-100 bg-blue-50/50 text-blue-700 text-sm font-bold mb-8 shadow-sm">
@@ -56,14 +56,14 @@ export default function Hero() {
               <span>Texas & Alabama's Top Telecom Consultant</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-gray-900 tracking-tight mb-8 leading-[1.05] text-balance">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-gray-900 tracking-tight mb-8 leading-[1.1] sm:leading-[1.05] text-balance">
               Expert Connections. <br />
               <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 bg-clip-text text-transparent">
                 Zero Fees. Always.
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-500 mb-12 leading-relaxed max-w-2xl mx-auto text-balance">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-500 mb-12 leading-relaxed max-w-2xl mx-auto text-balance">
               We compare the giants so you don't have to. Get the best pricing on internet, cable, and security through our direct partnerships.
             </p>
           </motion.div>

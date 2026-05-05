@@ -49,15 +49,15 @@ function MainSite({ onAdminClick }) {
       
       <FloatingCTA />
       
-      <footer className="bg-gray-50 border-t border-gray-100 py-16">
+      <footer className="bg-gray-50 border-t border-gray-100 py-10 sm:py-16 pb-24 sm:pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-12 items-center text-center md:text-left">
+          <div className="grid md:grid-cols-3 gap-8 sm:gap-12 items-center text-center md:text-left">
             <div>
               <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
                 <img 
                   src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
                   alt="HR205 LLC Communications"
-                  className="h-16 w-auto"
+                  className="h-14 sm:h-16 w-auto"
                 />
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
@@ -70,7 +70,7 @@ function MainSite({ onAdminClick }) {
               <a href="tel:2058101636" className="block text-gray-600 hover:text-blue-600 transition-colors font-medium">
                 205-810-1636
               </a>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-sm break-all">
                 hr205.co@hotmail.com
               </p>
               <p className="text-gray-600 text-sm">
@@ -84,7 +84,7 @@ function MainSite({ onAdminClick }) {
               </Link>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-gray-200 text-center">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 text-center">
             <p className="text-gray-400 text-xs mb-2">
               © {new Date().getFullYear()} HR205 LLC Communications. All rights reserved.
             </p>

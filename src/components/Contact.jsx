@@ -48,46 +48,46 @@ export default function Contact() {
   };
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-16 sm:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gray-900 rounded-[3rem] overflow-hidden shadow-2xl">
+        <div className="bg-gray-900 rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl">
           <div className="grid lg:grid-cols-2">
-            <div className="p-12 lg:p-20">
-              <h2 className="text-4xl font-bold text-white mb-6">Get in Touch</h2>
-              <p className="text-xl text-gray-400 mb-12">
+            <div className="p-6 sm:p-12 lg:p-20">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">Get in Touch</h2>
+              <p className="text-lg sm:text-xl text-gray-400 mb-8 sm:mb-12">
                 Have questions? Our team is ready to help you find the best connections.
               </p>
 
-              <div className="space-y-8">
-                <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white">
-                    <Phone className="w-6 h-6" />
+              <div className="space-y-6 sm:space-y-8">
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="w-12 sm:w-14 h-12 sm:h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                    <Phone className="w-5 sm:w-6 h-5 sm:h-6" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm text-gray-400 font-medium">Call Us</p>
-                    <a href="tel:2058101636" className="text-xl font-bold text-white hover:text-brand-navy/60 transition-colors">
+                    <a href="tel:2058101636" className="text-lg sm:text-xl font-bold text-white hover:text-blue-400 transition-colors">
                       205-810-1636
                     </a>
                   </div>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white">
-                    <Mail className="w-6 h-6" />
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="w-12 sm:w-14 h-12 sm:h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                    <Mail className="w-5 sm:w-6 h-5 sm:h-6" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm text-gray-400 font-medium">Email Us</p>
-                    <a href="mailto:homeremedies205@gmail.com" className="text-xl font-bold text-white hover:text-brand-navy/60 transition-colors">
-                      homeremedies205@gmail.com
+                    <a href="mailto:hr205.co@hotmail.com" className="text-base sm:text-xl font-bold text-white hover:text-blue-400 transition-colors break-all">
+                      hr205.co@hotmail.com
                     </a>
                   </div>
                 </div>
-                <div className="flex items-center gap-6">
-                  <div className="w-14 h-14 bg-brand-navy rounded-2xl flex items-center justify-center text-white">
-                    <MapPin className="w-6 h-6" />
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="w-12 sm:w-14 h-12 sm:h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                    <MapPin className="w-5 sm:w-6 h-5 sm:h-6" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm text-gray-400 font-medium">Visit Us</p>
-                    <p className="text-xl font-bold text-white leading-tight">
+                    <p className="text-base sm:text-xl font-bold text-white leading-tight">
                       1711 Bessemer Rd.<br />
                       Birmingham, Alabama 35208
                     </p>
@@ -96,7 +96,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-white p-12 lg:p-20">
+            <div className="bg-white p-6 sm:p-12 lg:p-20">
               {submitted ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-12">
                   <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center text-green-500 mb-6">

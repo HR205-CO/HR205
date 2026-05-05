@@ -40,42 +40,42 @@ const serviceCategories = [
 
 export default function Services() {
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-16 sm:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 sm:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
               Residential & <span className="text-brand-navy">Business Solutions</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               At HR205 LLC Communications, we provide expert consulting for both residential and commercial clients across Texas and Alabama.
             </p>
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-12">
+        <div className="grid grid-cols-1 gap-8 sm:gap-12">
           {serviceCategories.map((service, idx) => (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className={`flex flex-col lg:flex-row items-center gap-12 p-8 lg:p-12 bg-white rounded-[3rem] shadow-sm border border-gray-100 ${
+              className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 p-6 sm:p-8 lg:p-12 bg-white rounded-[2rem] sm:rounded-[3rem] shadow-sm border border-gray-100 ${
                 idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''
               }`}
             >
-              <div className="flex-1">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-navy/5 rounded-2xl text-brand-navy mb-6">
-                  <service.icon className="w-8 h-8" />
+              <div className="flex-1 w-full">
+                <div className="inline-flex items-center justify-center w-14 sm:w-16 h-14 sm:h-16 bg-brand-navy/5 rounded-2xl text-brand-navy mb-4 sm:mb-6">
+                  <service.icon className="w-7 sm:w-8 h-7 sm:h-8" />
                 </div>
-                <h3 className="text-3xl font-bold text-gray-900 mb-6">{service.title}</h3>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">{service.title}</h3>
+                <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                   {service.description}
                 </p>
-                <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-10">
                   {service.benefits.map((benefit, i) => (
                     <div key={i} className="flex items-center gap-3 text-gray-700 font-medium">
                       <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
@@ -104,14 +104,14 @@ export default function Services() {
           ))}
         </div>
 
-        <div className="mt-24 p-12 lg:p-20 text-center">
-          <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-8">Ready to find the best plan?</h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+        <div className="mt-16 sm:mt-24 p-6 sm:p-12 lg:p-20 text-center">
+          <h2 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8">Ready to find the best plan?</h2>
+          <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 max-w-2xl mx-auto">
             Our services are 100% free for customers. We handle the research, you enjoy the savings.
           </p>
           <Link
             to="/schedule"
-            className="inline-block bg-blue-600 text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:-translate-y-1"
+            className="inline-block bg-blue-600 text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-xl font-bold hover:bg-blue-700 transition-all shadow-lg hover:-translate-y-1"
           >
             Schedule Your Free Consultation
           </Link>

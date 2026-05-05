@@ -12,9 +12,9 @@ const locations = [
 
 export default function ServiceArea() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -23,11 +23,11 @@ export default function ServiceArea() {
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 mb-6 uppercase tracking-wider">
               Coverage Area
             </span>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
               Local Expertise.<br />
               <span className="text-blue-600">Nationwide Network.</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-8 font-heading">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8">
               While we have access to a nationwide network of providers, we specialize in delivering tailored connectivity solutions for homes and businesses in Texas and Alabama.
             </p>
             
@@ -38,9 +38,9 @@ export default function ServiceArea() {
                 'Exclusive regional promotions and bundles',
                 'Fast-tracked installation coordination'
               ].map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-500 flex-shrink-0" />
-                  <span className="text-gray-700 font-medium">{feature}</span>
+                <div key={idx} className="flex items-start sm:items-center gap-3">
+                  <CheckCircle2 className="w-5 sm:w-6 h-5 sm:h-6 text-emerald-500 flex-shrink-0 mt-0.5 sm:mt-0" />
+                  <span className="text-gray-700 font-medium text-sm sm:text-base">{feature}</span>
                 </div>
               ))}
             </div>
@@ -50,7 +50,7 @@ export default function ServiceArea() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative h-[450px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-blue-50/50"
+            className="relative h-[350px] sm:h-[450px] lg:h-[550px] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 bg-blue-50/50"
           >
             {/* Abstract dotted map pattern */}
             <div 

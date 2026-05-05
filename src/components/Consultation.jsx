@@ -79,10 +79,10 @@ export default function Consultation() {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-20 bg-gray-50/50">
+    <div className="min-h-screen pt-24 pb-12 sm:pb-20 bg-gray-50/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Progress Bar */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           <div className="flex justify-between items-center mb-4">
             {[1, 2, 3].map((s) => (
               <div key={s} className="flex flex-col items-center">
@@ -106,13 +106,13 @@ export default function Consultation() {
           </div>
         </div>
 
-        <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 overflow-hidden border border-gray-100">
+        <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-gray-200/50 overflow-hidden border border-gray-100">
           <div className="grid lg:grid-cols-5 min-h-[600px]">
             {/* Sidebar Info */}
-            <div className="lg:col-span-2 bg-gray-900 p-8 lg:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+            <div className="lg:col-span-2 bg-gray-900 p-6 sm:p-8 lg:p-12 text-white flex flex-col justify-between relative overflow-hidden">
               <div className="relative z-10">
-                <h2 className="text-4xl font-bold mb-6 leading-tight">Start Your <span className="text-blue-400">Better Connection</span> Journey</h2>
-                <p className="text-gray-400 text-lg mb-8">Expert telecom consulting at no cost to you. We find the deals, you enjoy the service.</p>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 leading-tight">Start Your <span className="text-blue-400">Better Connection</span> Journey</h2>
+                <p className="text-gray-400 text-base sm:text-lg mb-6 sm:mb-8">Expert telecom consulting at no cost to you. We find the deals, you enjoy the service.</p>
                 
                 <div className="space-y-6">
                   {['Personalized Savings', 'Top-Tier Providers', 'Free Setup Advice'].map((feature) => (
@@ -136,7 +136,7 @@ export default function Consultation() {
             </div>
 
             {/* Form Content */}
-            <div className="lg:col-span-3 p-8 lg:p-12">
+            <div className="lg:col-span-3 p-6 sm:p-8 lg:p-12">
               <AnimatePresence mode="wait">
                 {step === 1 && (
                   <motion.div 

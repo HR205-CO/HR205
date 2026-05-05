@@ -77,17 +77,17 @@ export default function Hiring() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-gray-50">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-12 sm:pb-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-blue-50 text-blue-700 mb-6 uppercase tracking-wider">
               Hiring
             </span>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
               We're Hiring <br/><span className="text-blue-600">Sales Representatives!</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-10 font-heading">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10">
               Join our team at HR205 LLC Communications and start your career in telecom communications. Take control of your income with no ceiling on your earnings.
             </p>
 

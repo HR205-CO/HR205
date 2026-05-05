@@ -38,35 +38,35 @@ export default function PromotionPopup() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-lg bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100"
+            className="relative w-full max-w-lg bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100 max-h-[90vh] overflow-y-auto"
           >
             <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-blue-700 to-blue-900 -z-0" />
             
             <button 
               onClick={closePopup}
-              className="absolute top-6 right-6 p-2 text-white/80 hover:text-white transition-colors z-10"
+              className="absolute top-4 sm:top-6 right-4 sm:right-6 p-2 text-white/80 hover:text-white transition-colors z-10"
             >
               <X className="w-6 h-6" />
             </button>
 
-            <div className="relative p-8 sm:p-12 pt-16">
-              <div className="inline-flex items-center justify-center bg-white rounded-3xl shadow-xl mb-8 relative z-10 p-3">
+            <div className="relative p-6 sm:p-12 pt-12 sm:pt-16">
+              <div className="inline-flex items-center justify-center bg-white rounded-2xl sm:rounded-3xl shadow-xl mb-6 sm:mb-8 relative z-10 p-2 sm:p-3">
                 <img 
                   src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
                   alt="HR205 LLC Communications"
-                  className="h-16 w-auto"
+                  className="h-12 sm:h-16 w-auto"
                 />
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-3 sm:mb-4 tracking-tight leading-tight">
                 Save Up To <span className="text-blue-700">30% Monthly</span> on Your Bills
               </h2>
               
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                 HR205 Communications helps residents and businesses in <span className="font-bold text-gray-900">Texas & Alabama</span> slash their telecom costs with expert consulting.
               </p>
 
-              <div className="grid gap-4 mb-10">
+              <div className="grid gap-3 sm:gap-4 mb-8 sm:mb-10">
                 {[
                   { title: 'Free Analysis', desc: 'We audit your current plans for free.' },
                   { title: 'Better Rates', desc: 'Access exclusive unlisted provider deals.' },

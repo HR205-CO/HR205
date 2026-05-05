@@ -77,17 +77,17 @@ export default function AffiliatePortal() {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-gray-50">
+    <div className="min-h-screen pt-28 sm:pt-32 pb-12 sm:pb-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-green-50 text-green-700 mb-6 uppercase tracking-wider">
               Affiliate Program
             </span>
-            <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
               Turn Your Recommendations <br/><span className="text-blue-600">Into Revenue.</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-10 font-heading">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-10">
               You already know people who need better internet, cable, or security. Why not get paid for connecting them? Zero selling required. Just share and earn.
             </p>
 
