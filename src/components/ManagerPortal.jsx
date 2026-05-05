@@ -72,9 +72,16 @@ export default function ManagerPortal({ onLogout }) {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">Manager Portal</h1>
-            <p className="text-sm text-gray-600">All Bookings & Management</p>
+          <div className="flex items-center gap-4">
+            <img 
+              src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
+              alt="HR205 LLC Communications"
+              className="h-12 w-auto"
+            />
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">Manager Portal</h1>
+              <p className="text-sm text-gray-600">All Bookings & Management</p>
+            </div>
           </div>
           <button
             onClick={onLogout}

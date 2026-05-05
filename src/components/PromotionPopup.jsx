@@ -50,8 +50,12 @@ export default function PromotionPopup() {
             </button>
 
             <div className="relative p-8 sm:p-12 pt-16">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-3xl shadow-xl text-blue-700 mb-8 relative z-10">
-                <TrendingDown className="w-10 h-10" />
+              <div className="inline-flex items-center justify-center bg-white rounded-3xl shadow-xl mb-8 relative z-10 p-3">
+                <img 
+                  src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
+                  alt="HR205 LLC Communications"
+                  className="h-16 w-auto"
+                />
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight leading-tight">

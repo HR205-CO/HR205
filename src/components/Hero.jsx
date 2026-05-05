@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Wifi, Tv, Smartphone, Shield, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { LOGO_URL } from '../constants/data';
 
 const FloatingIcon = ({ Icon, className, delay = 0 }) => (
   <motion.div
@@ -44,6 +45,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            <img 
+              src={LOGO_URL}
+              alt="HR205 LLC Communications"
+              className="h-32 sm:h-40 mx-auto mb-8"
+            />
+
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-100 bg-blue-50/50 text-blue-700 text-sm font-bold mb-8 shadow-sm">
               <Sparkles className="w-4 h-4 fill-blue-500" />
               <span>Texas & Alabama's Top Telecom Consultant</span>

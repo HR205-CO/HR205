@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, ArrowRight, Zap } from 'lucide-react';
+import { Menu, X, Phone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { LOGO_URL } from '../constants/data';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -30,12 +31,11 @@ export default function Navbar() {
           scrolled ? 'glass shadow-2xl shadow-blue-900/5' : 'bg-transparent'
         }`}>
           <Link to="/" className="flex items-center gap-2 group">
-            <div className={`w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white transition-transform group-hover:rotate-12`}>
-              <Zap className="w-5 h-5 fill-current" />
-            </div>
-            <span className="text-xl font-black tracking-tighter text-gray-900">
-              HR205 <span className="text-blue-600">COMMS</span>
-            </span>
+            <img 
+              src={LOGO_URL}
+              alt="HR205 LLC Communications"
+              className="h-12 w-auto transition-transform group-hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Nav */}

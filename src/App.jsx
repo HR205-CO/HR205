@@ -54,7 +54,11 @@ function MainSite({ onAdminClick }) {
           <div className="grid md:grid-cols-3 gap-12 items-center text-center md:text-left">
             <div>
               <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-                <span className="text-lg font-bold text-gray-900">HR205 LLC Communications</span>
+                <img 
+                  src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
+                  alt="HR205 LLC Communications"
+                  className="h-16 w-auto"
+                />
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
                 Expert telecom consulting in Texas & Alabama. <br />

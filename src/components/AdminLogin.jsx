@@ -37,6 +37,11 @@ export default function AdminLogin({ onLogin, onClose }) {
         </button>
 
         <div className="text-center mb-8">
+          <img 
+            src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
+            alt="HR205 LLC Communications"
+            className="h-20 w-auto mx-auto mb-4"
+          />
           <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>
           <p className="text-gray-600 mt-2">HR205 LLC Booking Management</p>
         </div>
