@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, LogIn, Share2, DollarSign, Users, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { US_STATES } from '../constants/data';
 
 export default function AffiliatePortal() {
   const [formData, setFormData] = React.useState({
@@ -164,6 +165,9 @@ export default function AffiliatePortal() {
                 >
                   <option value="Texas">Texas</option>
                   <option value="Alabama">Alabama</option>
+                  {US_STATES.filter(s => s !== 'Texas' && s !== 'Alabama').map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
                 </select>
               </div>
               <div>
