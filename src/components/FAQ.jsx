@@ -1,51 +1,72 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { FAQS } from '../constants/data';
+import { Plus, Minus, HelpCircle } from 'lucide-react';
+
+const faqs = [
+  {
+    question: "Is your service really free?",
+    answer: "Yes! We partner with service providers who pay us a commission for helping you find the right plan. There is absolutely no cost to you for our consultation or comparison services."
+  },
+  {
+    question: "Which states do you operate in?",
+    answer: "Currently, we provide expert telecom consulting and comparison services in Texas and Alabama."
+  },
+  {
+    question: "How do you help me save money?",
+    answer: "We have access to exclusive partner deals and a deep understanding of provider pricing structures. We analyze your needs and find the most cost-effective bundles available in your area."
+  },
+  {
+    question: "Can you help with business services?",
+    answer: "Absolutely. We handle both residential and commercial connections, including enterprise-grade internet and multi-line cellular plans."
+  },
+  {
+    question: "How long does the process take?",
+    answer: "A typical consultation takes about 15-20 minutes. Once you choose a plan, we handle the connection process with the provider immediately."
+  }
+];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = React.useState(null);
 
   return (
-    <section id="faq" className="py-20 bg-white">
+    <section className="py-24 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg text-gray-600">
-            Everything you need to know about working with HR 205
-          </p>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-navy/5 rounded-2xl text-brand-navy mb-6">
+            <HelpCircle className="w-8 h-8" />
+          </div>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+          <p className="text-xl text-gray-600">Everything you need to know about our services.</p>
         </div>
 
         <div className="space-y-4">
-          {FAQS.map((faq, index) => (
+          {faqs.map((faq, idx) => (
             <div
-              key={index}
-              className="border border-gray-200 rounded-xl overflow-hidden"
+              key={idx}
+              className="border border-gray-100 rounded-2xl overflow-hidden transition-all hover:border-brand-navy/20"
             >
               <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left bg-white hover:bg-gray-50 transition-colors"
               >
                 <span className="font-bold text-gray-900">{faq.question}</span>
-                <motion.div
-                  animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronDown className="w-5 h-5 text-gray-500" />
-                </motion.div>
+                {activeIndex === idx ? (
+                  <Minus className="w-5 h-5 text-brand-navy" />
+                ) : (
+                  <Plus className="w-5 h-5 text-gray-400" />
+                )}
               </button>
               <AnimatePresence>
-                {openIndex === index && (
+                {activeIndex === idx && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-6 pb-4 text-gray-600">{faq.answer}</p>
+                    <div className="px-6 pb-5 text-gray-600 leading-relaxed">
+                      {faq.answer}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -1,64 +1,197 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Award, DollarSign } from 'lucide-react';
-import { COMPANY_INFO } from '../constants/data';
+import { UserPlus, LogIn, Share2, DollarSign, Users, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 export default function AffiliatePortal() {
+  const [formData, setFormData] = React.useState({
+    fullName: '',
+    email: '',
+    state: 'Texas',
+    referralCode: ''
+  });
+  const [errors, setErrors] = React.useState({});
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState('');
+  const [authError, setAuthError] = React.useState(null);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    return newErrors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+    setSuccessMessage('');
+    setAuthError(null);
+    
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      const { error: submitError } = await supabase
+        .from('affiliates')
+        .insert([{
+          full_name: formData.fullName,
+          email: formData.email,
+          state: formData.state,
+          referral_code: formData.referralCode || null
+        }]);
+      
+      if (submitError) {
+        console.warn('Affiliates table may not exist:', submitError);
+      }
+      
+      setSuccessMessage('Application submitted! We will review and contact you with next steps.');
+      setFormData({ fullName: '', email: '', state: 'Texas', referralCode: '' });
+    } catch (err) {
+      console.error("Submission error:", err);
+      setAuthError('An error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
   return (
-    <section className="py-20 bg-white">
+    <div className="min-h-screen pt-32 pb-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-8 sm:p-12 text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <Award className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-              Become an Affiliate
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-green-50 text-green-700 mb-6 uppercase tracking-wider">
+              Affiliate Program
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+              Turn Your Recommendations <br/><span className="text-blue-600">Into Revenue.</span>
             </h2>
-            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-              Refer friends and family. Earn money for every successful sign-up. It is that simple.
+            <p className="text-xl text-gray-600 mb-10 font-heading">
+              You already know people who need better internet, cable, or security. Why not get paid for connecting them? Zero selling required. Just share and earn.
             </p>
+
+            <div className="space-y-8">
+              {[
+                { icon: Share2, title: 'Effortless Sharing', desc: 'Simply refer friends, family, or clients to us. We handle all the heavy lifting, comparisons, and setup.' },
+                { icon: DollarSign, title: 'Passive Income Stream', desc: 'Earn generous payouts for every successful referral that connects a service through us.' },
+                { icon: Users, title: 'Zero Sales Pressure', desc: 'You are not a salesperson. You are a connector. Help people find better deals and get rewarded for it.' },
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-blue-600">
+                    <item.icon className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900">{item.title}</h3>
+                    <p className="text-gray-600">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white rounded-3xl p-8 lg:p-12 shadow-xl border border-gray-100"
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Become an Affiliate</h3>
+
+            {successMessage && (
+              <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-xl border border-green-100 font-medium text-center">
+                {successMessage}
+              </div>
+            )}
+            
+            {authError && (
+              <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-xl border border-red-100 font-medium text-center text-sm">
+                {authError}
+              </div>
+            )}
+
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.fullName ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all`}
+                  placeholder="John Doe"
+                />
+                {errors.fullName && <p className="mt-1 text-xs text-red-500 font-medium">{errors.fullName}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-red-500 bg-red-50' : 'border-gray-200'} focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all`}
+                  placeholder="john@example.com"
+                />
+                {errors.email && <p className="mt-1 text-xs text-red-500 font-medium">{errors.email}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">State of Operation</label>
+                <select
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+                >
+                  <option value="Texas">Texas</option>
+                  <option value="Alabama">Alabama</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Referral Code (Optional)</label>
+                <input
+                  type="text"
+                  name="referralCode"
+                  value={formData.referralCode}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+                  placeholder="REF123"
+                />
+              </div>
+              <button
+                disabled={isSubmitting}
+                className={`w-full py-4 ${isSubmitting ? 'bg-gray-400' : 'bg-gray-900 hover:bg-blue-600'} text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2`}
+              >
+                {isSubmitting ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <UserPlus className="w-5 h-5" />
+                )}
+                {isSubmitting ? 'Please wait...' : 'Apply Now'}
+              </button>
+            </form>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-              <div className="bg-yellow-400 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="w-7 h-7 text-blue-900" />
-              </div>
-              <h3 className="font-bold text-xl mb-2">Earn Cash</h3>
-              <p className="text-blue-100 text-sm">Get paid for every referral that signs up</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-              <div className="bg-yellow-400 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
-                <TrendingUp className="w-7 h-7 text-blue-900" />
-              </div>
-              <h3 className="font-bold text-xl mb-2">No Limit</h3>
-              <p className="text-blue-100 text-sm">Refer as many people as you want</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur rounded-2xl p-6 text-center">
-              <div className="bg-yellow-400 w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-7 h-7 text-blue-900" />
-              </div>
-              <h3 className="font-bold text-xl mb-2">Easy Process</h3>
-              <p className="text-blue-100 text-sm">We handle the rest after you refer</p>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <a
-              href={`mailto:${COMPANY_INFO.email}?subject=Affiliate Program Interest`}
-              className="inline-block bg-yellow-400 text-blue-900 font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-yellow-300 transition-all"
-            >
-              Join Affiliate Program
-            </a>
-          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

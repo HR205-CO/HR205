@@ -87,7 +87,6 @@ export default function ManagerPortal({ onLogout }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-6 rounded-lg border border-gray-200">
             <p className="text-gray-600 text-sm font-medium">Total</p>
@@ -107,7 +106,6 @@ export default function ManagerPortal({ onLogout }) {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-2">
@@ -142,7 +140,6 @@ export default function ManagerPortal({ onLogout }) {
           </div>
         </div>
 
-        {/* Table */}
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">

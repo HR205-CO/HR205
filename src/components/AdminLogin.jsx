@@ -12,13 +12,11 @@ export default function AdminLogin({ onLogin, onClose }) {
     e.preventDefault();
     setError('');
 
-    // Check if manager
     if (email === MANAGER_AUTH.email && password === MANAGER_AUTH.password) {
       onLogin('manager', null);
       return;
     }
 
-    // Check if rep
     const rep = REPS.find(r => r.email === email && r.password === password);
     if (rep) {
       onLogin('rep', rep);
@@ -29,7 +27,7 @@ export default function AdminLogin({ onLogin, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-900 to-blue-800 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-gradient-to-br from-blue-900 to-blue-800 z-[200] flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
         <button
           onClick={onClose}
@@ -40,7 +38,7 @@ export default function AdminLogin({ onLogin, onClose }) {
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>
-          <p className="text-gray-600 mt-2">HR 205 LLC Booking Management</p>
+          <p className="text-gray-600 mt-2">HR205 LLC Booking Management</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

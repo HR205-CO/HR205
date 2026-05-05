@@ -1,43 +1,54 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
-import { TESTIMONIALS } from '../constants/data';
+
+const testimonials = [
+  {
+    id: '1',
+    name: 'Sarah Johnson',
+    location: 'Austin, TX',
+    text: "HR205 saved me over $50 a month on my internet and cable bundle. The process was so easy and the consultant was incredibly helpful!",
+    rating: 5
+  },
+  {
+    id: '2',
+    name: 'Michael Chen',
+    location: 'Birmingham, AL',
+    text: "I was overwhelmed by the cellular options for my small business. They found me a plan that actually works for my team and saved us a fortune.",
+    rating: 5
+  },
+  {
+    id: '3',
+    name: 'Elena Rodriguez',
+    location: 'Dallas, TX',
+    text: "The security system they recommended gives me such peace of mind. Best part? I didn't pay a dime for their expert advice.",
+    rating: 5
+  }
+];
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-50 to-white">
+    <section className="py-24 bg-gray-900 text-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            What Our Customers Say
-          </h2>
-          <p className="text-lg text-gray-600">
-            Real stories from real people who saved with HR 205
-          </p>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">What Our Customers Say</h2>
+          <p className="text-xl text-gray-400">Real stories from real people in Texas and Alabama.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-2xl p-6 shadow-lg"
-            >
-              <Quote className="w-8 h-8 text-blue-200 mb-4" />
-              <div className="flex gap-1 mb-3">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((t) => (
+            <div key={t.id} className="relative bg-white/5 backdrop-blur-sm p-8 rounded-3xl border border-white/10 hover:bg-white/10 transition-all">
+              <Quote className="absolute top-6 right-8 w-12 h-12 text-brand-navy/80/20" />
+              <div className="flex gap-1 mb-6">
+                {[...Array(t.rating)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-brand-green text-brand-navy/80" />
                 ))}
               </div>
-              <p className="text-gray-700 mb-4 italic">"{testimonial.text}"</p>
+              <p className="text-lg text-gray-300 mb-8 italic">"{t.text}"</p>
               <div>
-                <p className="font-bold text-gray-900">{testimonial.name}</p>
-                <p className="text-sm text-gray-500">{testimonial.location}</p>
+                <p className="font-bold text-white">{t.name}</p>
+                <p className="text-sm text-brand-navy/60">{t.location}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
