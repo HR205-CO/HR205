@@ -127,8 +127,8 @@ export default function Consultation() {
               </div>
 
               <div className="mt-12 relative z-10 pt-12 border-t border-gray-800">
-                <p className="text-sm text-gray-500 mb-2">TRUSTED BY CUSTOMERS IN</p>
-                <p className="text-xl font-bold text-gray-300">Alabama & Texas</p>
+                <p className="text-sm text-gray-500 mb-2">SERVING</p>
+                <p className="text-xl font-bold text-gray-300">Customers Nationwide</p>
               </div>
 
               {/* Decorative background element */}

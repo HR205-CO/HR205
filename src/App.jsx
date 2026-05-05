@@ -61,7 +61,7 @@ function MainSite({ onAdminClick }) {
                 />
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Expert telecom consulting in Texas & Alabama. <br />
+                Expert telecom consulting nationwide. <br />
                 Connecting you to the best providers at no cost.
               </p>
             </div>

@@ -53,7 +53,7 @@ export default function Hero() {
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-100 bg-blue-50/50 text-blue-700 text-sm font-bold mb-8 shadow-sm">
               <Sparkles className="w-4 h-4 fill-blue-500" />
-              <span>Texas & Alabama's Top Telecom Consultant</span>
+              <span>Nationwide Telecom Consulting</span>
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-gray-900 tracking-tight mb-8 leading-[1.1] sm:leading-[1.05] text-balance">

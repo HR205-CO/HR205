@@ -63,7 +63,7 @@ export default function PromotionPopup() {
               </h2>
               
               <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
-                HR205 Communications helps residents and businesses in <span className="font-bold text-gray-900">Texas & Alabama</span> slash their telecom costs with expert consulting.
+                HR205 Communications helps residents and businesses <span className="font-bold text-gray-900">nationwide</span> slash their telecom costs with expert consulting.
               </p>
 
               <div className="grid gap-3 sm:gap-4 mb-8 sm:mb-10">

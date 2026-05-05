@@ -7,7 +7,7 @@ export const COMPANY_INFO = {
   phone: '205-810-1636',
   email: 'hr205.co@hotmail.com',
   address: '1711 Bessemer Rd, Birmingham, Alabama 35208',
-  serviceAreas: 'Texas & Alabama',
+  serviceAreas: 'Nationwide',
   tagline: 'Expert telecom consulting at no cost to you'
 };
 
