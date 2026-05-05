@@ -2,12 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, Briefcase, TrendingUp, Users, Loader2, DollarSign, Clock, GraduationCap } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { US_STATES } from '../constants/data';
 
 export default function Hiring() {
   const [formData, setFormData] = React.useState({
     fullName: '',
     email: '',
     phone: '',
+    state: 'Alabama',
+    experience: 'none',
     referredBy: ''
   });
   const [errors, setErrors] = React.useState({});
@@ -46,6 +49,8 @@ export default function Hiring() {
           full_name: formData.fullName,
           email: formData.email,
           phone: formData.phone,
+          state: formData.state,
+          experience: formData.experience,
           referred_by: formData.referredBy,
           status: 'pending'
         }]);
@@ -55,7 +60,7 @@ export default function Hiring() {
       }
       
       setSuccessMessage('Application submitted successfully! We will be in touch soon.');
-      setFormData({ fullName: '', email: '', phone: '', referredBy: '' });
+      setFormData({ fullName: '', email: '', phone: '', state: 'Alabama', experience: 'none', referredBy: '' });
     } catch (err) {
       console.error("Submission error:", err);
       setErrors({ submit: 'An error occurred while submitting your application. Please try again later.' });
@@ -181,6 +186,35 @@ export default function Hiring() {
                   placeholder="(555) 123-4567"
                 />
                 {errors.phone && <p className="mt-1 text-xs text-red-500 font-medium">{errors.phone}</p>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">State</label>
+                <select
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+                >
+                  {US_STATES.map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">Experience</label>
+                <select
+                  name="experience"
+                  value={formData.experience}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all"
+                >
+                  <option value="none">No experience (we'll train you)</option>
+                  <option value="sales">Sales experience</option>
+                  <option value="tech">Tech experience</option>
+                  <option value="both">Both sales and tech</option>
+                </select>
               </div>
 
               <div>
