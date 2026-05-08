@@ -53,6 +53,48 @@ export default function VideoIntro() {
     if (!muted) setShowUnmuteHint(false);
   }, [muted]);
 
+  // Try to play unmuted ASAP, and auto-unmute on first user interaction
+  // (browsers block unmuted autoplay until the user has interacted with the page)
+  useEffect(() => {
+    if (phase !== 'fullscreen') return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Optimistic attempt: works for returning visitors with media-engagement history
+    video.muted = false;
+    const attempt = video.play();
+    if (attempt && typeof attempt.then === 'function') {
+      attempt.then(() => {
+        // Sound is on — sync state
+        setMuted(false);
+      }).catch(() => {
+        // Browser blocked unmuted autoplay — fall back to muted so playback at least starts
+        video.muted = true;
+        setMuted(true);
+        video.play().catch(() => {});
+      });
+    }
+
+    // Auto-unmute the moment the user interacts with the page in any way
+    const enableSound = () => {
+      const v = videoRef.current;
+      if (v && v.muted) {
+        v.muted = false;
+        setMuted(false);
+      }
+      cleanup();
+    };
+    const cleanup = () => {
+      document.removeEventListener('pointerdown', enableSound);
+      document.removeEventListener('keydown', enableSound);
+      document.removeEventListener('touchstart', enableSound);
+    };
+    document.addEventListener('pointerdown', enableSound);
+    document.addEventListener('keydown', enableSound);
+    document.addEventListener('touchstart', enableSound);
+    return cleanup;
+  }, [phase]);
+
   if (phase === 'hidden' || phase === 'closed') return null;
 
   const isFullscreen = phase === 'fullscreen';
