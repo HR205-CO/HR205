@@ -16,6 +16,7 @@ import FloatingCTA from './components/FloatingCTA';
 import AdminLogin from './components/AdminLogin';
 import ManagerPortal from './components/ManagerPortal';
 import RepPortal from './components/RepPortal';
+import VideoIntro from './components/VideoIntro';
 
 function HomePage() {
   return (
@@ -124,6 +125,7 @@ export default function App() {
 
   return (
     <Router>
+      <VideoIntro />
       <MainSite onAdminClick={() => setShowAdminLogin(true)} />
       {showAdminLogin && (
         <AdminLogin 
