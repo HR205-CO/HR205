@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { X, Volume2, VolumeX } from 'lucide-react';
 
 const VIDEO_URL =
   'https://res.cloudinary.com/dzu1guddd/video/upload/f_auto/v1778278920/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_px3kis.mov';
@@ -39,9 +39,12 @@ export default function VideoIntro() {
     return () => clearTimeout(t);
   }, [phase]);
 
-  // Trigger arrival glow when entering corner phase
+  // Trigger arrival glow when entering corner phase + auto-mute so audio stops
+  // distracting from the rest of the site (user can re-unmute manually via the speaker button)
   useEffect(() => {
     if (phase !== 'corner') return;
+    if (videoRef.current) videoRef.current.muted = true;
+    setMuted(true);
     setJustArrivedAtCorner(true);
     const t = setTimeout(() => setJustArrivedAtCorner(false), 1100);
     return () => clearTimeout(t);
@@ -101,7 +104,6 @@ export default function VideoIntro() {
 
   const handleSkip = () => setPhase('corner');
   const handleClose = () => setPhase('closed');
-  const handleExpand = () => setPhase('fullscreen');
   const toggleMute = () => setMuted((m) => !m);
 
   return (
@@ -194,22 +196,13 @@ export default function VideoIntro() {
 
         {/* Corner-only controls */}
         {!isFullscreen && (
-          <>
-            <button
-              onClick={handleClose}
-              aria-label="Close video"
-              className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white transition-colors"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={handleExpand}
-              aria-label="Expand video"
-              className="absolute top-2 left-2 p-1.5 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white transition-colors"
-            >
-              <Maximize2 className="w-3.5 h-3.5" />
-            </button>
-          </>
+          <button
+            onClick={handleClose}
+            aria-label="Close video"
+            className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-sm text-white transition-colors"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         )}
 
         {/* 10-second progress bar — fullscreen only, glowing brand blue */}
