@@ -108,7 +108,7 @@ export const TESTIMONIALS = [
   },
   {
     name: 'Linda Thompson',
-    location: 'Dallas, TX',
+    location: 'Houston, TX',
     rating: 5,
     text: 'They found me a better internet plan with double the speed for less money. Highly recommend!'
   }
@@ -116,7 +116,8 @@ export const TESTIMONIALS = [
 
 // Provider logos (telecom partners)
 export const PROVIDERS = [
-  'AT&T', 'Spectrum', 'Verizon', 'T-Mobile', 'Xfinity', 'Cox', 'Frontier', 'CenturyLink'
+  'AT&T', 'Spectrum', 'Verizon', 'T-Mobile', 'Xfinity', 'Cox', 'Frontier', 'CenturyLink',
+  'Brightspeed', 'Go Net Speed', 'C-Spire'
 ];
 
 // Auth - Manager and Reps

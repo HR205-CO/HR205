@@ -19,7 +19,7 @@ const testimonials = [
   {
     id: '3',
     name: 'Elena Rodriguez',
-    location: 'Dallas, TX',
+    location: 'Houston, TX',
     text: "The security system they recommended gives me such peace of mind. Best part? I didn't pay a dime for their expert advice.",
     rating: 5
   }

@@ -51,7 +51,7 @@ export default function Services() {
               Residential & <span className="text-brand-navy">Business Solutions</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              At HR205 LLC Communications, we provide expert consulting for both residential and commercial clients nationwide, with offices in Birmingham, Alabama and Dallas, Texas.
+              At HR205 LLC Communications, we provide expert consulting for both residential and commercial clients nationwide, with offices in Birmingham, Alabama and Houston, Texas.
             </p>
           </motion.div>
         </div>

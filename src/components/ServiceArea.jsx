@@ -4,7 +4,7 @@ import { CheckCircle2, Building2, MapPin } from 'lucide-react';
 
 const locations = [
   { name: 'Birmingham (HQ)', top: '58%', left: '66%', isHQ: true, labelPos: 'right' },
-  { name: 'Dallas (Office)', top: '60%', left: '46%', isOffice: true, labelPos: 'left' },
+  { name: 'Houston (Office)', top: '66%', left: '48%', isOffice: true, labelPos: 'left' },
 ];
 
 // Coverage dots scattered across the US to show nationwide service
@@ -45,14 +45,14 @@ export default function ServiceArea() {
               <span className="text-blue-600">Local Expertise.</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8">
-              We provide expert telecom consulting across the entire United States. With our headquarters in Birmingham, Alabama and a second office in Dallas, Texas, we deliver tailored connectivity solutions to homes and businesses everywhere.
+              We provide expert telecom consulting across the entire United States. With our headquarters in Birmingham, Alabama and a second office in Houston, Texas, we deliver tailored connectivity solutions to homes and businesses everywhere.
             </p>
             
             <div className="space-y-4">
               {[
                 'Coast-to-coast provider network access',
                 'Headquartered in Birmingham, Alabama',
-                'Second office in Dallas, Texas',
+                'Second office in Houston, Texas',
                 'Personalized consultations nationwide'
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-start sm:items-center gap-3">
@@ -100,7 +100,7 @@ export default function ServiceArea() {
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 5 }}>
               <motion.line
                 x1="66%" y1="58%"
-                x2="46%" y2="60%"
+                x2="48%" y2="66%"
                 stroke="#3b82f6"
                 strokeWidth="2"
                 strokeDasharray="6 4"

@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     question: "Which states do you operate in?",
-    answer: "We provide expert telecom consulting and comparison services nationwide, with our headquarters in Birmingham, Alabama and a second office in Dallas, Texas."
+    answer: "We provide expert telecom consulting and comparison services nationwide, with our headquarters in Birmingham, Alabama and a second office in Houston, Texas."
   },
   {
     question: "How do you help me save money?",

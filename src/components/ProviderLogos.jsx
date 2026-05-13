@@ -2,12 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const providers = [
-  { name: 'AT&T', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/AT%26T_logo_2016.svg' },
-  { name: 'Spectrum', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Spectrum_logo.svg' },
-  { name: 'Xfinity', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Xfinity_2022_logo.svg' },
-  { name: 'Verizon', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/04/Verizon_2015_logo.svg' },
-  { name: 'T-Mobile', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/T-Mobile_logo.svg' },
-  { name: 'ADT', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/ADT_logo.svg' }
+  { name: 'AT&T' },
+  { name: 'Spectrum' },
+  { name: 'Xfinity' },
+  { name: 'Verizon' },
+  { name: 'T-Mobile' },
+  { name: 'ADT' },
+  { name: 'Brightspeed' },
+  { name: 'Go Net Speed' },
+  { name: 'C-Spire' },
 ];
 
 export default function ProviderLogos() {
