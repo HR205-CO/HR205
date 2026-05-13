@@ -17,6 +17,8 @@ import AdminLogin from './components/AdminLogin';
 import ManagerPortal from './components/ManagerPortal';
 import RepPortal from './components/RepPortal';
 import VideoIntro from './components/VideoIntro';
+import CustomerGallery from './components/CustomerGallery';
+import TeamUpload from './components/TeamUpload';
 
 function HomePage() {
   return (
@@ -25,6 +27,7 @@ function HomePage() {
       <Hero />
       <ServiceArea />
       <ProviderLogos />
+      <CustomerGallery />
       <Testimonials />
       <FAQ />
       <Contact />
@@ -45,6 +48,7 @@ function MainSite({ onAdminClick }) {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/schedule" element={<Consultation />} />
+          <Route path="/team-upload" element={<TeamUpload />} />
         </Routes>
       </main>
       
