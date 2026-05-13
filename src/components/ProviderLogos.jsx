@@ -4,13 +4,16 @@ import { motion } from 'framer-motion';
 const providers = [
   { name: 'AT&T' },
   { name: 'Spectrum' },
-  { name: 'Xfinity' },
   { name: 'Verizon' },
-  { name: 'T-Mobile' },
-  { name: 'ADT' },
+  { name: 'DIRECTV' },
+  { name: 'Frontier' },
   { name: 'Brightspeed' },
-  { name: 'Go Net Speed' },
   { name: 'C-Spire' },
+  { name: 'Optimum' },
+  { name: 'Vivent' },
+  { name: 'T-Fiber/Metronet' },
+  { name: 'Gonet Speed Fiber' },
+  { name: 'EarthLink' },
 ];
 
 export default function ProviderLogos() {

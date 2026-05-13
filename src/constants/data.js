@@ -88,7 +88,7 @@ export const FAQS = [
   },
   {
     question: 'Do you work with all providers?',
-    answer: 'We work with all major telecom providers including AT&T, Spectrum, Verizon, T-Mobile, and many more.'
+    answer: 'We work with all major telecom providers including AT&T, Spectrum, Verizon, DIRECTV, Brightspeed, C-Spire, Optimum, Frontier, EarthLink, and many more.'
   }
 ];
 
@@ -116,8 +116,8 @@ export const TESTIMONIALS = [
 
 // Provider logos (telecom partners)
 export const PROVIDERS = [
-  'AT&T', 'Spectrum', 'Verizon', 'T-Mobile', 'Xfinity', 'Cox', 'Frontier', 'CenturyLink',
-  'Brightspeed', 'Go Net Speed', 'C-Spire'
+  'AT&T', 'Spectrum', 'Verizon', 'DIRECTV', 'Frontier', 'Brightspeed',
+  'C-Spire', 'Optimum', 'Vivent', 'T-Fiber/Metronet', 'Gonet Speed Fiber', 'EarthLink'
 ];
 
 // Auth - Manager and Reps
