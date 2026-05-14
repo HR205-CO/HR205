@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LOGO_URL } from '../constants/data';
+import { SITE } from '../config/site';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -32,8 +32,8 @@ export default function Navbar() {
         }`}>
           <Link to="/" className="flex items-center gap-2 group">
             <img 
-              src={LOGO_URL}
-              alt="HR205 LLC Communications"
+              src={SITE.logo}
+              alt={SITE.name}
               className="h-12 w-auto transition-transform group-hover:scale-105"
             />
           </Link>

@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Upload, CheckCircle, Image } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
-const CLOUD_NAME  = 'hr205';
-const UPLOAD_PRESET = 'hr205_team_uploads'; // Create this in Cloudinary dashboard
-const TEAM_PASSWORD = 'HR205uploads';        // Share this with the team
+import { SITE } from '../config/site';
+
+const CLOUD_NAME  = SITE.cloudinary.cloudName;
+const UPLOAD_PRESET = SITE.cloudinary.uploadPreset; // Create this in Cloudinary dashboard
+const TEAM_PASSWORD = SITE.teamUploadPassword;        // Share this with the team
 
 export default function TeamUpload() {
   const [authed, setAuthed]     = useState(false);

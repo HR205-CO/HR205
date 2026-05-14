@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LogOut, Filter, Download, QrCode } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { US_STATES } from '../constants/data';
+import { SITE } from '../config/site';
 import QRManager from './QRManager';
 
 export default function ManagerPortal({ onLogout }) {
@@ -76,8 +77,8 @@ export default function ManagerPortal({ onLogout }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <img 
-              src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
-              alt="HR205 LLC Communications"
+              src={SITE.logo}
+              alt={SITE.name}
               className="h-12 w-auto"
             />
             <div>

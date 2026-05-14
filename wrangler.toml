@@ -1,0 +1,5 @@
+name = "hr205"
+pages_build_output_dir = "dist"
+
+[observability]
+enabled = true
