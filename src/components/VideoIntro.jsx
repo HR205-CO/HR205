@@ -15,13 +15,9 @@ export default function VideoIntro() {
   const [justArrivedAtCorner, setJustArrivedAtCorner] = useState(false);
   const videoRef = useRef(null);
 
-  // On mount: only show once per browser session
+  // Show on every page load — no session gate
   useEffect(() => {
-    const seen = sessionStorage.getItem(STORAGE_KEY);
-    if (seen) return;
-
     setPhase('fullscreen');
-    sessionStorage.setItem(STORAGE_KEY, 'true');
 
     // Show "Tap to unmute" hint after a beat, then auto-fade
     const showHint = setTimeout(() => setShowUnmuteHint(true), 1500);
