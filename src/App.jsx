@@ -19,6 +19,7 @@ import RepPortal from './components/RepPortal';
 import VideoIntro from './components/VideoIntro';
 import CustomerGallery from './components/CustomerGallery';
 import TeamUpload from './components/TeamUpload';
+import QRTracker from './components/QRTracker';
 
 function HomePage() {
   return (
@@ -130,6 +131,7 @@ export default function App() {
   return (
     <Router>
       <VideoIntro />
+      <QRTracker />
       <MainSite onAdminClick={() => setShowAdminLogin(true)} />
       {showAdminLogin && (
         <AdminLogin 

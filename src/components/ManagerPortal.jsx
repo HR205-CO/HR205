@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { LogOut, Filter, Download } from 'lucide-react';
+import { LogOut, Filter, Download, QrCode } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { US_STATES } from '../constants/data';
+import QRManager from './QRManager';
 
 export default function ManagerPortal({ onLogout }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterState, setFilterState] = useState('all');
+  const [activeTab, setActiveTab] = useState('bookings');
 
   useEffect(() => {
     fetchBookings();
@@ -93,8 +95,35 @@ export default function ManagerPortal({ onLogout }) {
         </div>
       </div>
 
+      {/* Tab navigation */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <nav className="flex gap-1">
+            {[
+              { id: 'bookings', label: 'Bookings' },
+              { id: 'qr',       label: 'QR Codes', icon: QrCode },
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold border-b-2 transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-brand-blue text-brand-blue'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {tab.icon && <tab.icon className="w-4 h-4" />}
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {activeTab === 'qr' && <QRManager />}
+        {activeTab === 'bookings' && (<>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-6 rounded-lg border border-gray-200">
             <p className="text-gray-600 text-sm font-medium">Total</p>
             <p className="text-3xl font-bold text-gray-900 mt-2">{bookings.length}</p>
@@ -111,7 +140,7 @@ export default function ManagerPortal({ onLogout }) {
             <p className="text-gray-600 text-sm font-medium">Completed</p>
             <p className="text-3xl font-bold text-green-600 mt-2">{bookings.filter(b => b.status === 'completed').length}</p>
           </div>
-        </div>
+          </div>
 
         <div className="bg-white p-6 rounded-lg border border-gray-200 mb-6">
           <div className="flex items-center gap-4 flex-wrap">
@@ -213,6 +242,7 @@ export default function ManagerPortal({ onLogout }) {
             </table>
           </div>
         </div>
+        </>)}
       </div>
     </div>
   );
