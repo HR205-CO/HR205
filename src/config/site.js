@@ -15,7 +15,7 @@ export const SITE = {
   logo: 'https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png',
 
   // ── Intro video (Cloudinary). Forces H.264 mp4 for universal browser support. ──
-  introVideo: 'https://res.cloudinary.com/hr205/video/upload/f_mp4,vc_h264,q_auto/v1778278920/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_px3kis.mov',
+  introVideo: 'https://res.cloudinary.com/hr205/video/upload/v1778751556/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_vcg2kg.mp4',
 
   // ── Contact ────────────────────────────────────────────────────────────────
   email:  'hr205.co@hotmail.com',
