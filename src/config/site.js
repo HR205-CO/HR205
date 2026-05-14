@@ -20,8 +20,8 @@ export const SITE = {
 
   // ── Offices ────────────────────────────────────────────────────────────────
   offices: [
-    { city: 'Birmingham', state: 'Alabama',  label: 'Headquarters' },
-    { city: 'Houston',    state: 'Texas',    label: 'Second Office' },
+    { city: 'Birmingham', state: 'Alabama', street: '1711 Bessemer Rd.', zip: '35208', label: 'Headquarters' },
+    { city: 'Houston',    state: 'Texas',   street: '',                  zip: '',      label: 'Second Office' },
   ],
 
   // ── Hero section ───────────────────────────────────────────────────────────

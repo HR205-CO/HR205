@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React, { useState, useEffect, useRef } from 'react';
 import QRCode from 'react-qr-code';
 import { Download, Printer, QrCode, BarChart2, Users, User, Globe } from 'lucide-react';
@@ -74,7 +75,7 @@ export default function QRManager() {
         p    { margin-top: 16px; font-size: 13px; color: #555; text-align: center; max-width: 300px; word-break: break-all; }
         h2   { margin: 0 0 8px; font-size: 18px; color: #1e3a8a; }
       </style></head><body>
-      <h2>HR205 LLC Communications</h2>
+      <h2>${SITE.name}</h2>
       ${svg.outerHTML}
       <p>${qrUrl}</p>
       </body></html>`);

@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 // Logo
 export const LOGO_URL = 'https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png';
 

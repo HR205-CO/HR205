@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Wifi, Tv, Smartphone, Shield, Check, ArrowRight } from 'lucide-react';
@@ -51,7 +52,7 @@ export default function Services() {
               Residential & <span className="text-brand-navy">Business Solutions</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              At HR205 LLC Communications, we provide expert consulting for both residential and commercial clients nationwide, with offices in Birmingham, Alabama and Houston, Texas.
+              At {SITE.name}, we provide expert consulting for both residential and commercial clients nationwide, with offices in {SITE.offices[0].city}, {SITE.offices[0].state} and {SITE.offices[1].city}, {SITE.offices[1].state}.
             </p>
           </motion.div>
         </div>

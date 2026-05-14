@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, HelpCircle } from 'lucide-react';
+import { SITE } from '../config/site';
 
 const faqs = [
   {
@@ -9,7 +10,7 @@ const faqs = [
   },
   {
     question: "Which states do you operate in?",
-    answer: "We provide expert telecom consulting and comparison services nationwide, with our headquarters in Birmingham, Alabama and a second office in Houston, Texas."
+    answer: `We provide expert telecom consulting and comparison services nationwide, with our headquarters in ${SITE.offices[0].city}, ${SITE.offices[0].state} and a second office in ${SITE.offices[1].city}, ${SITE.offices[1].state}.`
   },
   {
     question: "How do you help me save money?",

@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { UserPlus, Briefcase, TrendingUp, Users, Loader2, DollarSign, Clock, GraduationCap } from 'lucide-react';

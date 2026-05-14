@@ -1,10 +1,12 @@
+import { SITE } from "../config/site";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Building2, MapPin } from 'lucide-react';
 
+// Map pin positions — update if office cities change
 const locations = [
-  { name: 'Birmingham (HQ)', top: '58%', left: '66%', isHQ: true, labelPos: 'right' },
-  { name: 'Houston (Office)', top: '66%', left: '48%', isOffice: true, labelPos: 'left' },
+  { name: `${SITE.offices[0].city} (HQ)`, top: '58%', left: '66%', isHQ: true,    labelPos: 'right' },
+  { name: `${SITE.offices[1].city} (Office)`, top: '66%', left: '48%', isOffice: true, labelPos: 'left'  },
 ];
 
 // Coverage dots scattered across the US to show nationwide service
@@ -45,14 +47,14 @@ export default function ServiceArea() {
               <span className="text-blue-600">Local Expertise.</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-8">
-              We provide expert telecom consulting across the entire United States. With our headquarters in Birmingham, Alabama and a second office in Houston, Texas, we deliver tailored connectivity solutions to homes and businesses everywhere.
+              We provide expert telecom consulting across the entire United States. With our headquarters in {SITE.offices[0].city}, {SITE.offices[0].state} and a second office in {SITE.offices[1].city}, {SITE.offices[1].state}, we deliver tailored connectivity solutions to homes and businesses everywhere.
             </p>
             
             <div className="space-y-4">
               {[
                 'Coast-to-coast provider network access',
-                'Headquartered in Birmingham, Alabama',
-                'Second office in Houston, Texas',
+                `Headquartered in ${SITE.offices[0].city}, ${SITE.offices[0].state}`,
+                `Second office in ${SITE.offices[1].city}, ${SITE.offices[1].state}`,
                 'Personalized consultations nationwide'
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-start sm:items-center gap-3">

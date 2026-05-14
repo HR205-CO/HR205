@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, TrendingDown, CheckCircle, ArrowRight } from 'lucide-react';
@@ -52,8 +53,8 @@ export default function PromotionPopup() {
             <div className="relative p-6 sm:p-12 pt-12 sm:pt-16">
               <div className="inline-flex items-center justify-center bg-white rounded-2xl sm:rounded-3xl shadow-xl mb-6 sm:mb-8 relative z-10 p-2 sm:p-3">
                 <img 
-                  src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
-                  alt="HR205 LLC Communications"
+                  src={SITE.logo}
+                  alt={SITE.name}
                   className="h-12 sm:h-16 w-auto"
                 />
               </div>

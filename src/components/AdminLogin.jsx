@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React, { useState } from 'react';
 import { Eye, EyeOff, AlertCircle, X } from 'lucide-react';
 import { MANAGER_AUTH, REPS } from '../constants/data';
@@ -38,8 +39,8 @@ export default function AdminLogin({ onLogin, onClose }) {
 
         <div className="text-center mb-8">
           <img 
-            src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
-            alt="HR205 LLC Communications"
+            src={SITE.logo}
+            alt={SITE.name}
             className="h-20 w-auto mx-auto mb-4"
           />
           <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>

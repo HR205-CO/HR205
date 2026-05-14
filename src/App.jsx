@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { SITE } from './config/site';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceArea from './components/ServiceArea';
@@ -61,28 +62,30 @@ function MainSite({ onAdminClick }) {
             <div>
               <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
                 <img 
-                  src="https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png"
-                  alt="HR205 LLC Communications"
+                  src={SITE.logo}
+                  alt={SITE.name}
                   className="h-14 sm:h-16 w-auto"
                 />
               </div>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Expert telecom consulting nationwide. <br />
-                Connecting you to the best providers at no cost.
+                {SITE.description}
               </p>
             </div>
             <div className="space-y-2">
               <p className="text-sm font-bold text-gray-900 uppercase tracking-wider">Contact Us</p>
-              <a href="tel:2058101636" className="block text-gray-600 hover:text-blue-600 transition-colors font-medium">
-                205-810-1636
-              </a>
+              {SITE.phone && (
+                <a href={`tel:${SITE.phone.replace(/\D/g,'')}`} className="block text-gray-600 hover:text-blue-600 transition-colors font-medium">
+                  {SITE.phone}
+                </a>
+              )}
               <p className="text-gray-600 text-sm break-all">
-                hr205.co@hotmail.com
+                {SITE.email}
               </p>
-              <p className="text-gray-600 text-sm">
-                1711 Bessemer Rd.<br />
-                Birmingham, Alabama 35208
-              </p>
+              {SITE.offices[0] && (
+                <p className="text-gray-600 text-sm">
+                  {SITE.offices[0].city}, {SITE.offices[0].state}
+                </p>
+              )}
             </div>
             <div className="flex justify-center md:justify-end gap-4">
               <Link to="/schedule" className="bg-blue-600 text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-blue-700 transition-all">
@@ -92,7 +95,7 @@ function MainSite({ onAdminClick }) {
           </div>
           <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 text-center">
             <p className="text-gray-400 text-xs mb-2">
-              © {new Date().getFullYear()} HR205 LLC Communications. All rights reserved.
+              © {new Date().getFullYear()} {SITE.name}. All rights reserved.
             </p>
             <button
               onClick={onAdminClick}

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Wifi, Tv, Smartphone, Shield, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { LOGO_URL } from '../constants/data';
+import { SITE } from '../config/site';
 
 const FloatingIcon = ({ Icon, className, delay = 0 }) => (
   <motion.div
@@ -46,8 +46,8 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <img 
-              src={LOGO_URL}
-              alt="HR205 LLC Communications"
+              src={SITE.logo}
+              alt={SITE.name}
               className="h-24 sm:h-32 md:h-40 mx-auto mb-6 sm:mb-8"
             />
 

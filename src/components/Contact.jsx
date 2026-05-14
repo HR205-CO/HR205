@@ -1,3 +1,4 @@
+import { SITE } from "../config/site";
 import React from 'react';
 import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -76,8 +77,8 @@ export default function Contact() {
                   </div>
                   <div className="min-w-0">
                     <p className="text-sm text-gray-400 font-medium">Email Us</p>
-                    <a href="mailto:hr205.co@hotmail.com" className="text-base sm:text-xl font-bold text-white hover:text-blue-400 transition-colors break-all">
-                      hr205.co@hotmail.com
+                    <a href={`mailto:${SITE.email}`} className="text-base sm:text-xl font-bold text-white hover:text-blue-400 transition-colors break-all">
+                      {SITE.email}
                     </a>
                   </div>
                 </div>
@@ -88,8 +89,8 @@ export default function Contact() {
                   <div className="min-w-0">
                     <p className="text-sm text-gray-400 font-medium">Visit Us</p>
                     <p className="text-base sm:text-xl font-bold text-white leading-tight">
-                      1711 Bessemer Rd.<br />
-                      Birmingham, Alabama 35208
+                      {SITE.offices[0].street && <>{SITE.offices[0].street}<br /></>}
+                      {SITE.offices[0].city}, {SITE.offices[0].state} {SITE.offices[0].zip}
                     </p>
                   </div>
                 </div>
