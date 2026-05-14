@@ -3,13 +3,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const photos = [
+  // — Strongest / most professional up front —
+  { src: '/customer-photos/photo-25.jpg', caption: 'DIRECTV booth — Home Show' },
   { src: '/customer-photos/photo-01.jpg', caption: 'New service day — happy family' },
-  { src: '/customer-photos/photo-02.jpg', caption: 'Professional in-home consultation' },
+  { src: '/customer-photos/photo-19.jpg', caption: 'Connecting another household' },
   { src: '/customer-photos/photo-08.jpg', caption: 'DIRECTV setup complete' },
+  { src: '/customer-photos/photo-28.jpg', caption: 'In-home consultation' },
   { src: '/customer-photos/photo-10.jpg', caption: 'Customer appreciation' },
+  { src: '/customer-photos/photo-02.jpg', caption: 'Professional service visit' },
   { src: '/customer-photos/photo-11.jpg', caption: 'Serving families nationwide' },
-  { src: '/customer-photos/photo-07.jpg', caption: 'Metronet install day' },
+  { src: '/customer-photos/photo-22.jpg', caption: 'The team on location' },
   { src: '/customer-photos/photo-12.jpg', caption: 'Welcome to better connectivity' },
+  // — Solid middle tier —
+  { src: '/customer-photos/photo-18.jpg', caption: 'DIRECTV — another happy home' },
+  { src: '/customer-photos/photo-26.jpg', caption: 'Thumbs up from a satisfied customer' },
+  { src: '/customer-photos/photo-07.jpg', caption: 'Metronet install day' },
+  { src: '/customer-photos/photo-24.jpg', caption: 'Doorstep consultation' },
+  { src: '/customer-photos/photo-15.jpg', caption: 'Making the connection' },
+  { src: '/customer-photos/photo-17.jpg', caption: 'Business partnerships' },
+  { src: '/customer-photos/photo-14.jpg', caption: 'Community expo' },
+  { src: '/customer-photos/photo-27.jpg', caption: 'On the porch' },
+  // — Casual / deeper scroll —
+  { src: '/customer-photos/photo-13.jpg', caption: 'Evening service call' },
+  { src: '/customer-photos/photo-09.jpg', caption: 'The whole crew on location' },
+  { src: '/customer-photos/photo-06.jpg', caption: 'On-site with a customer' },
+  { src: '/customer-photos/photo-03.jpg', caption: 'Out in the field' },
+  // — Last —
+  { src: '/customer-photos/photo-05.jpg', caption: 'Helping customers at home' },
 ];
 
 export default function CustomerGallery() {
