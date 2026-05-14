@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Volume2, VolumeX } from 'lucide-react';
 
+// Force H.264 mp4 — widest device/browser support (works on Edge, Chrome, Safari, iOS)
 const VIDEO_URL =
-  'https://res.cloudinary.com/dzu1guddd/video/upload/f_auto/v1778278920/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_px3kis.mov';
+  'https://res.cloudinary.com/dzu1guddd/video/upload/f_mp4,vc_h264,q_auto/v1778278920/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_px3kis.mov';
 const FULLSCREEN_DURATION_MS = 10000;
 const STORAGE_KEY = 'hasSeenIntroVideo';
 
@@ -51,48 +52,6 @@ export default function VideoIntro() {
     if (videoRef.current) videoRef.current.muted = muted;
     if (!muted) setShowUnmuteHint(false);
   }, [muted]);
-
-  // Try to play unmuted ASAP, and auto-unmute on first user interaction
-  // (browsers block unmuted autoplay until the user has interacted with the page)
-  useEffect(() => {
-    if (phase !== 'fullscreen') return;
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Optimistic attempt: works for returning visitors with media-engagement history
-    video.muted = false;
-    const attempt = video.play();
-    if (attempt && typeof attempt.then === 'function') {
-      attempt.then(() => {
-        // Sound is on — sync state
-        setMuted(false);
-      }).catch(() => {
-        // Browser blocked unmuted autoplay — fall back to muted so playback at least starts
-        video.muted = true;
-        setMuted(true);
-        video.play().catch(() => {});
-      });
-    }
-
-    // Auto-unmute the moment the user interacts with the page in any way
-    const enableSound = () => {
-      const v = videoRef.current;
-      if (v && v.muted) {
-        v.muted = false;
-        setMuted(false);
-      }
-      cleanup();
-    };
-    const cleanup = () => {
-      document.removeEventListener('pointerdown', enableSound);
-      document.removeEventListener('keydown', enableSound);
-      document.removeEventListener('touchstart', enableSound);
-    };
-    document.addEventListener('pointerdown', enableSound);
-    document.addEventListener('keydown', enableSound);
-    document.addEventListener('touchstart', enableSound);
-    return cleanup;
-  }, [phase]);
 
   if (phase === 'hidden' || phase === 'closed') return null;
 
