@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Volume2, VolumeX } from 'lucide-react';
+import { SITE } from '../config/site';
 
-// Force H.264 mp4 — widest device/browser support (works on Edge, Chrome, Safari, iOS)
-const VIDEO_URL =
-  'https://res.cloudinary.com/dzu1guddd/video/upload/f_mp4,vc_h264,q_auto/v1778278920/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_px3kis.mov';
+const VIDEO_URL = SITE.introVideo;
 const FULLSCREEN_DURATION_MS = 10000;
-const STORAGE_KEY = 'hasSeenIntroVideo';
+
 
 export default function VideoIntro() {
   // 'hidden' | 'fullscreen' | 'corner' | 'closed'
