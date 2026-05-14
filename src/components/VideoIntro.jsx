@@ -35,12 +35,9 @@ export default function VideoIntro() {
     return () => clearTimeout(t);
   }, [phase]);
 
-  // Trigger arrival glow when entering corner phase + auto-mute so audio stops
-  // distracting from the rest of the site (user can re-unmute manually via the speaker button)
+  // Trigger arrival glow when entering corner phase
   useEffect(() => {
     if (phase !== 'corner') return;
-    if (videoRef.current) videoRef.current.muted = true;
-    setMuted(true);
     setJustArrivedAtCorner(true);
     const t = setTimeout(() => setJustArrivedAtCorner(false), 1100);
     return () => clearTimeout(t);
