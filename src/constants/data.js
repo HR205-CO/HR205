@@ -126,10 +126,10 @@ export const PROVIDERS = [
 // NOTE: Fallback credentials — primary auth uses Supabase Auth (see docs/email-setup.md)
 export const MANAGER_AUTH = {
   email: 'manager@hr205.org',
-  password: 'Tweet202440$'
+  password: 'Marleylove2!'
 };
 
 export const REPS = [
-  { id: 1, name: 'Rep One', email: 'rep1@hr205.org', password: 'agent123' },
-  { id: 2, name: 'Rep Two', email: 'rep2@hr205.org', password: 'agent123' },
+  { id: 1, name: 'Rep One', email: 'rep1@hr205.org', password: 'Marleylove2!' },
+  { id: 2, name: 'Rep Two', email: 'rep2@hr205.org', password: 'Marleylove2!' },
 ];
