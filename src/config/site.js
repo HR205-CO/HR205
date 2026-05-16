@@ -36,15 +36,11 @@ export const SITE = {
     rep3:     'rep3@hr205.org',     // Group → add when third rep is hired
   },
 
-  // ── SMTP / Zoho Mail ───────────────────────────────────────────────────────
-  smtp: {
-    host:     'smtp.zoho.com',
-    port:     587,
-    secure:   false,
-    user:     'admin@hr205.org',   // sending account
-    fromName: 'HR205 LLC Communications',
-    // password: set as Supabase secret → ZOHO_SMTP_PASS
-  },
+  // ── Email sending — Resend (resend.com) ────────────────────────────────────
+  // Domain hr205.org is verified on Resend. API key stored as Supabase secret.
+  // From address for automated notifications:
+  emailSender: 'HR205 Notifications <notifications@hr205.org>',
+  // RESEND_API_KEY — set in Supabase: Settings → Secrets → RESEND_API_KEY
 
   // ── Offices ────────────────────────────────────────────────────────────────
   offices: [
