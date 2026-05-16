@@ -121,7 +121,7 @@ export default function Hiring() {
                   <span className="font-bold">Call Us:</span> (205) 810-1636
                 </p>
                 <p className="text-gray-600 flex items-center gap-2">
-                  <span className="font-bold">Email Us:</span> homeremedies205@gmail.com
+                  <span className="font-bold">Email Us:</span> dispatch@hr205.org
                 </p>
               </div>
             </div>

@@ -2,11 +2,11 @@ import { SITE } from "../config/site";
 // Logo
 export const LOGO_URL = 'https://res.cloudinary.com/dptzwxncr/image/upload/q_auto/f_auto/v1777878516/IMG_1193_ysom0i.png';
 
-// Company Info
+// Company Info (legacy — prefer SITE config for new components)
 export const COMPANY_INFO = {
-  name: 'HR 205 LLC Communications',
-  phone: '205-810-1636',
-  email: 'hr205.co@hotmail.com',
+  name: 'HR205 LLC Communications',
+  phone: '',
+  email: 'info@hr205.org',
   address: '1711 Bessemer Rd, Birmingham, Alabama 35208',
   serviceAreas: 'Nationwide',
   tagline: 'Expert telecom consulting at no cost to you'
@@ -121,14 +121,16 @@ export const PROVIDERS = [
   'C-Spire', 'Optimum', 'Vivent', 'T-Fiber/Metronet', 'Gonet Speed Fiber', 'EarthLink'
 ];
 
-// Auth - Manager and Reps
+// Auth — Manager and Reps
+// NOTE: These are client-side credentials for demo/internal use only.
+// Migrate to Supabase Auth for production (see docs/email-setup.md)
 export const MANAGER_AUTH = {
-  email: 'hr205.co+manager@hotmail.com',
+  email: 'admin@hr205.org',
   password: 'Tweet202440$'
 };
 
 export const REPS = [
-  { id: 1, name: 'Rep 1', email: 'hr205.co+rep1@hotmail.com', password: 'agent123' },
-  { id: 2, name: 'Rep 2', email: 'hr205.co+rep2@hotmail.com', password: 'agent123' },
-  { id: 3, name: 'Rep 3', email: 'hr205.co+rep3@hotmail.com', password: 'agent123' }
+  { id: 1, name: 'Rep 1', email: 'rep1@hr205.org', password: 'agent123' },
+  { id: 2, name: 'Rep 2', email: 'rep2@hr205.org', password: 'agent123' },
+  { id: 3, name: 'Rep 3', email: 'rep3@hr205.org', password: 'agent123' }
 ];

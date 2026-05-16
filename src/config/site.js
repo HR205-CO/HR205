@@ -18,8 +18,21 @@ export const SITE = {
   introVideo: 'https://res.cloudinary.com/hr205/video/upload/v1778751556/copy_EB4CE56E-B47F-4D0A-819B-FB83E9FED83A_vcg2kg.mp4',
 
   // ── Contact ────────────────────────────────────────────────────────────────
-  email:  'hr205.co@hotmail.com',
-  phone:  '',                       // add when available, e.g. '+1 (205) 555-0100'
+  email:  'info@hr205.org',        // public-facing — shown on site & contact page
+  phone:  '',
+
+  // ── Email routing (operational — not shown publicly) ───────────────────────
+  emails: {
+    admin:    'admin@hr205.org',    // manager portal auth + admin notifications
+    support:  'support@hr205.org',  // contact form submissions, customer support
+    dispatch: 'dispatch@hr205.org', // rep dispatch, hiring inquiries, operations
+    info:     'info@hr205.org',     // general info, public-facing
+    reps: {
+      rep1: 'rep1@hr205.org',
+      rep2: 'rep2@hr205.org',
+      rep3: 'rep3@hr205.org',
+    },
+  },
 
   // ── Offices ────────────────────────────────────────────────────────────────
   offices: [

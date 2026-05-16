@@ -39,7 +39,7 @@ export default function Consultation() {
         .from('consultations')
         .insert([{
           name: formData.name,
-          email: formData.name + '@client.local',
+          email: `noemail+${Date.now()}@hr205.org`,  // placeholder — form does not collect email
           phone: formData.phone,
           state: formData.state,
           interests: [formData.service],
