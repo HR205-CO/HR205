@@ -32,12 +32,23 @@ export default function Contact() {
           email: formData.email,
           message: formData.message
         }]);
-      
+
       if (submitError) {
-        // If contacts table doesn't exist, just show success anyway
         console.warn('Contacts table may not exist:', submitError);
       }
-      
+
+      // Email notification to support@hr205.org
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'support@hr205.org',
+          replyTo: formData.email,
+          subject: `New contact — ${formData.firstName} ${formData.lastName}`,
+          text: `New contact form submission\n\nName: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nMessage: ${formData.message}`,
+        }),
+      }).catch(() => {}); // fire and forget — don't block UI
+
       setSubmitted(true);
       setFormData({ firstName: '', lastName: '', email: '', message: '' });
     } catch (err) {

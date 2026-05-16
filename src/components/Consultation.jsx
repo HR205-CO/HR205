@@ -51,6 +51,18 @@ export default function Consultation() {
         }]);
       
       if (submitError) throw submitError;
+
+      // Email notification to admin@hr205.org
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'admin@hr205.org',
+          subject: `New consultation request — ${formData.name}`,
+          text: `New consultation booking\n\nName: ${formData.name}\nPhone: ${formData.phone}\nState: ${formData.state}\nService: ${formData.service}\nPreferred date: ${formData.date} at ${formData.time}\nReferral: ${formData.referralSource}`,
+        }),
+      }).catch(() => {});
+
       setStep(4);
     } catch (err) {
       console.error("Error submitting consultation:", err);

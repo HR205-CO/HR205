@@ -59,7 +59,19 @@ export default function Hiring() {
       if (submitError) {
         console.warn('Sales reps table may not exist:', submitError);
       }
-      
+
+      // Email notification to dispatch@hr205.org
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'dispatch@hr205.org',
+          replyTo: formData.email,
+          subject: `New job application — ${formData.fullName}`,
+          text: `New hiring application\n\nName: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nState: ${formData.state}\nExperience: ${formData.experience}\nReferred by: ${formData.referredBy || '—'}`,
+        }),
+      }).catch(() => {});
+
       setSuccessMessage('Application submitted successfully! We will be in touch soon.');
       setFormData({ fullName: '', email: '', phone: '', state: 'Alabama', experience: 'none', referredBy: '' });
     } catch (err) {
