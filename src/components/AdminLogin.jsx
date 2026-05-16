@@ -1,98 +1,170 @@
-import { SITE } from "../config/site";
 import React, { useState } from 'react';
-import { Eye, EyeOff, AlertCircle, X } from 'lucide-react';
+import { SITE } from "../config/site";
+import { supabase } from '../lib/supabase';
 import { MANAGER_AUTH, REPS } from '../constants/data';
 
 export default function AdminLogin({ onLogin, onClose }) {
-  const [email, setEmail] = useState('');
+  const [email,    setEmail]    = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
+  const [error,    setError]    = useState('');
+  const [loading,  setLoading]  = useState(false);
+  const [view,     setView]     = useState('login'); // 'login' | 'forgot' | 'sent'
 
-  const handleSubmit = (e) => {
+  // ── Sign in ──────────────────────────────────────────────────────────────
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    if (email === MANAGER_AUTH.email && password === MANAGER_AUTH.password) {
-      onLogin('manager', null);
+    // 1. Try Supabase Auth first (proper auth for production users)
+    const { data, error: sbError } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (!sbError && data?.user) {
+      const role = data.user.user_metadata?.role || 'rep';
+      onLogin({ role, user: data.user, via: 'supabase' });
+      setLoading(false);
       return;
     }
 
+    // 2. Fallback: hardcoded credentials (demo / pre-migration)
+    if (email === MANAGER_AUTH.email && password === MANAGER_AUTH.password) {
+      onLogin({ role: 'manager', via: 'local' });
+      setLoading(false);
+      return;
+    }
     const rep = REPS.find(r => r.email === email && r.password === password);
     if (rep) {
-      onLogin('rep', rep);
+      onLogin({ role: 'rep', ...rep, via: 'local' });
+      setLoading(false);
       return;
     }
 
-    setError('Invalid credentials');
+    setError('Invalid email or password.');
+    setLoading(false);
+  };
+
+  // ── Forgot password ───────────────────────────────────────────────────────
+  const handleForgot = async (e) => {
+    e.preventDefault();
+    if (!email) { setError('Enter your email first.'); return; }
+    setError('');
+    setLoading(true);
+
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+
+    setLoading(false);
+    if (resetError) { setError(resetError.message); return; }
+    setView('sent');
   };
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-900 to-blue-800 z-[200] flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-        >
-          <X className="w-6 h-6" />
-        </button>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[200] flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 relative">
 
-        <div className="text-center mb-8">
-          <img 
-            src={SITE.logo}
-            alt={SITE.name}
-            className="h-20 w-auto mx-auto mb-4"
-          />
-          <h1 className="text-3xl font-bold text-gray-900">Admin Portal</h1>
-          <p className="text-gray-600 mt-2">HR205 LLC Booking Management</p>
+        {/* Close */}
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-light">✕</button>
+
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <img src={SITE.logo} alt={SITE.name} className="h-12 w-auto" />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
-              <AlertCircle className="w-5 h-5 text-red-600" />
-              <p className="text-red-700 text-sm">{error}</p>
-            </div>
-          )}
+        {/* ── Login view ── */}
+        {view === 'login' && (
+          <>
+            <h2 className="text-xl font-bold text-brand-navy text-center mb-1">Staff Portal</h2>
+            <p className="text-sm text-gray-400 text-center mb-6">Sign in with your hr205.org account</p>
 
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Email</label>
-            <input 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="manager or rep email"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
-            <div className="relative">
-              <input 
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:ring-4 focus:ring-blue-50 outline-none transition-all"
+            <form onSubmit={handleLogin} className="space-y-4">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="you@hr205.org"
+                required
+                autoFocus
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
               />
+              <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
               <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                type="submit"
+                disabled={loading}
+                className="w-full bg-brand-blue hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors disabled:opacity-60"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {loading ? 'Signing in…' : 'Sign In'}
               </button>
-            </div>
-          </div>
+            </form>
 
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-all shadow-lg"
-          >
-            Sign In
-          </button>
-        </form>
+            <button
+              onClick={() => { setView('forgot'); setError(''); }}
+              className="w-full mt-4 text-sm text-gray-400 hover:text-brand-blue transition-colors text-center"
+            >
+              Forgot password?
+            </button>
+          </>
+        )}
+
+        {/* ── Forgot password view ── */}
+        {view === 'forgot' && (
+          <>
+            <h2 className="text-xl font-bold text-brand-navy text-center mb-1">Reset Password</h2>
+            <p className="text-sm text-gray-400 text-center mb-6">We'll send a reset link to your hr205.org email</p>
+
+            <form onSubmit={handleForgot} className="space-y-4">
+              <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                placeholder="you@hr205.org"
+                required
+                autoFocus
+                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue"
+              />
+              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-brand-blue hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors disabled:opacity-60"
+              >
+                {loading ? 'Sending…' : 'Send Reset Link'}
+              </button>
+            </form>
+
+            <button
+              onClick={() => { setView('login'); setError(''); }}
+              className="w-full mt-4 text-sm text-gray-400 hover:text-brand-blue transition-colors text-center"
+            >
+              ← Back to sign in
+            </button>
+          </>
+        )}
+
+        {/* ── Sent confirmation ── */}
+        {view === 'sent' && (
+          <div className="text-center">
+            <div className="text-4xl mb-4">📬</div>
+            <h2 className="text-xl font-bold text-brand-navy mb-2">Check your email</h2>
+            <p className="text-sm text-gray-500 mb-6">
+              If <span className="font-medium text-brand-navy">{email}</span> is a registered hr205.org account, a reset link is on its way.
+            </p>
+            <button
+              onClick={() => { setView('login'); setError(''); }}
+              className="w-full bg-brand-blue hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors"
+            >
+              Back to sign in
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

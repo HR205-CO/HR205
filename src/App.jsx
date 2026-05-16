@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { SITE } from './config/site';
+import { supabase } from './lib/supabase';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ServiceArea from './components/ServiceArea';
@@ -21,6 +22,7 @@ import VideoIntro from './components/VideoIntro';
 import CustomerGallery from './components/CustomerGallery';
 import TeamUpload from './components/TeamUpload';
 import QRTracker from './components/QRTracker';
+import ResetPassword from './components/ResetPassword';
 
 function HomePage() {
   return (
@@ -51,6 +53,7 @@ function MainSite({ onAdminClick }) {
           <Route path="/contact" element={<Contact />} />
           <Route path="/schedule" element={<Consultation />} />
           <Route path="/team-upload" element={<TeamUpload />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </main>
       
@@ -114,12 +117,26 @@ export default function App() {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [adminUser, setAdminUser] = useState(null);
 
+  // Listen for Supabase auth state changes (password reset callback, etc.)
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // Let the ResetPassword page handle it
+      }
+      if (event === 'SIGNED_OUT') {
+        setAdminUser(null);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
   const handleAdminLogin = (role, rep) => {
     setAdminUser({ role, rep });
     setShowAdminLogin(false);
   };
 
-  const handleAdminLogout = () => {
+  const handleAdminLogout = async () => {
+    await supabase.auth.signOut(); // sign out of Supabase if logged in via Supabase Auth
     setAdminUser(null);
   };
 

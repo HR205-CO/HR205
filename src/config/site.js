@@ -27,11 +27,24 @@ export const SITE = {
     support:  'support@hr205.org',  // contact form submissions, customer support
     dispatch: 'dispatch@hr205.org', // rep dispatch, hiring inquiries, operations
     info:     'info@hr205.org',     // general info, public-facing
+    careers:  'careers@hr205.org',  // hiring applications
     reps: {
       rep1: 'rep1@hr205.org',
       rep2: 'rep2@hr205.org',
       rep3: 'rep3@hr205.org',
     },
+  },
+
+  // ── SMTP / Zoho Mail ───────────────────────────────────────────────────────
+  // Paste your Zoho SMTP password here once accounts are created.
+  // These values are used in Supabase Edge Functions (server-side only).
+  smtp: {
+    host:     'smtp.zoho.com',
+    port:     587,
+    secure:   false,             // STARTTLS
+    user:     'admin@hr205.org', // sending account
+    fromName: 'HR205 LLC Communications',
+    // password: set as SUPABASE secret ZOHO_SMTP_PASS — never hardcode here
   },
 
   // ── Offices ────────────────────────────────────────────────────────────────
