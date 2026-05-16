@@ -122,15 +122,13 @@ export const PROVIDERS = [
 ];
 
 // Auth — Manager and Reps
-// NOTE: These are client-side credentials for demo/internal use only.
-// Migrate to Supabase Auth for production (see docs/email-setup.md)
+// NOTE: Fallback credentials — primary auth uses Supabase Auth (see docs/email-setup.md)
 export const MANAGER_AUTH = {
-  email: 'admin@hr205.org',
+  email: 'manager@hr205.org',
   password: 'Tweet202440$'
 };
 
 export const REPS = [
-  { id: 1, name: 'Rep 1', email: 'rep1@hr205.org', password: 'agent123' },
-  { id: 2, name: 'Rep 2', email: 'rep2@hr205.org', password: 'agent123' },
-  { id: 3, name: 'Rep 3', email: 'rep3@hr205.org', password: 'agent123' }
+  { id: 1, name: 'Rep One', email: 'rep1@hr205.org', password: 'agent123' },
+  { id: 2, name: 'Rep Two', email: 'rep2@hr205.org', password: 'agent123' },
 ];
