@@ -14,6 +14,7 @@ const providers = [
   { name: 'T-Fiber/Metronet' },
   { name: 'Gonet Speed Fiber' },
   { name: 'EarthLink' },
+  { name: 'Kinetic by Windstream' },
 ];
 
 export default function ProviderLogos() {
