@@ -118,7 +118,7 @@ export const TESTIMONIALS = [
 // Provider logos (telecom partners)
 export const PROVIDERS = [
   'AT&T', 'Spectrum', 'Verizon', 'DIRECTV', 'Frontier', 'Brightspeed',
-  'C-Spire', 'Optimum', 'Vivent', 'T-Fiber/Metronet', 'Gonet Speed Fiber',
+  'C-Spire', 'Optimum', 'Vivint', 'T-Fiber/Metronet', 'Gonet Speed Fiber',
   'EarthLink', 'Kinetic by Windstream'
 ];
 

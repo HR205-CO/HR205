@@ -10,7 +10,7 @@ const providers = [
   { name: 'Brightspeed' },
   { name: 'C-Spire' },
   { name: 'Optimum' },
-  { name: 'Vivent' },
+  { name: 'Vivint' },
   { name: 'T-Fiber/Metronet' },
   { name: 'Gonet Speed Fiber' },
   { name: 'EarthLink' },
