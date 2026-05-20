@@ -99,7 +99,7 @@ export default function Hero() {
           >
             <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em]">Partnered with Industry Leaders</p>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
-              {['AT&T', 'Spectrum', 'Xfinity', 'Optimum', 'DirectTV', 'Vivint'].map((brand) => (
+              {['AT&T', 'Spectrum', 'Xfinity', 'Optimum', 'DIRECTV', 'Vivint'].map((brand) => (
                 <span key={brand} className="text-xl font-black italic tracking-tighter text-gray-900">{brand}</span>
               ))}
             </div>
